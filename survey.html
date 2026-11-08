@@ -262,7 +262,7 @@
             .then(res => res.json())
             .then(data => {
                 if (data.result === "success") {
-                    document.getElementById('status').textContent = "Thank you! A confirmation email has been sent to " + payload.userEmail + ".";
+                    document.getElementById('status').textContent = "</b>Thank you! </br>A confirmation email has been sent to " + payload.userEmail + ".";
                     form.style.display = 'none';
                 } else {
                     document.getElementById('status').textContent = "Error: " + data.message;
