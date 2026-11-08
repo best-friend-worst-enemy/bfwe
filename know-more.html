@@ -124,6 +124,30 @@
             line-height: 1.8;
         }
 
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 40px 0;
+            width: 100%;
+        }
+
+        .thumbnail {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(217, 156, 69, 0.4);
+            border-color: var(--brand-gold);
+        }
+
         .btn-container {
             margin-top: 40px;
             text-align: center;
@@ -145,18 +169,58 @@
             background-color: transparent;
             color: var(--text-light);
             border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
         }
 
         .btn:hover {
             border-color: var(--text-light);
             background-color: rgba(255,255,255,0.1);
         }
+
+        /* Image Modal / Exhibition View */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(5, 5, 5, 0.95);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 90vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .thumbnail-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .image-modal img {
+                max-width: 95vw;
+                max-height: 70vh;
+            }
+        }
     </style>
 </head>
 <body>
 
     <video autoplay loop muted playsinline id="bg-video">
-        <source src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/Oja.mp4" type="video/mp4">
+        <source src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/Chalkdog.mp4" type="video/mp4">
     </video>
     
     <div class="video-overlay"></div>
@@ -173,6 +237,13 @@
             
             <p>Tobacco's history is deeply entangled with colonization, slavery, and the exploitation of labor. From its early cultivation in the Americas to its global expansion, the industry was built on systems of power and control that prioritized profit over human life.</p>
             
+            <div class="thumbnail-grid">
+                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%201.png" alt="Exhibition 1" class="thumbnail" onclick="openModal(this.src)">
+                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%202.png" alt="Exhibition 2" class="thumbnail" onclick="openModal(this.src)">
+                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%203.png" alt="Exhibition 3" class="thumbnail" onclick="openModal(this.src)">
+                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%204.png" alt="Exhibition 4" class="thumbnail" onclick="openModal(this.src)">
+            </div>
+            
             <p>The industry has long relied on manipulation and misinformation. Through aggressive marketing, strategic lobbying, and the deliberate suppression of scientific evidence, tobacco companies have successfully delayed regulation and obscured the true health risks of their products for decades.</p>
             
             <p>Today, the legacy of continuous lies persists. As new products emerge and old tactics are repackaged, understanding this dark history is essential. We must examine the roots of the industry to fully grasp the ongoing impact it has on public health, global economies, and the environment.</p>
@@ -182,6 +253,31 @@
             </div>
         </div>
     </div>
+
+    <!-- Image Exhibition Modal -->
+    <div class="image-modal" id="imageModal">
+        <img id="modalImage" src="" alt="Expanded view">
+        <button class="btn" onclick="closeModal()">Return</button>
+    </div>
+
+    <script>
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+            document.getElementById('modalImage').src = '';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 
 </body>
 </html>
