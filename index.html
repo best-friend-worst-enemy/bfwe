@@ -75,17 +75,10 @@
         }
 
         .brand-mark {
-            width: clamp(75px, 11.25vw, 135px); 
+            width: clamp(172px, 25.8vw, 310px); /* Increased by 15% */
             height: auto;
             margin-bottom: 40px;
             filter: drop-shadow(0 0 20px rgba(217, 156, 69, 0.4)); 
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
         }
 
         .text-content {
@@ -105,29 +98,6 @@
             color: var(--text-muted);
             line-height: 1.8;
             margin-bottom: 0;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1vw, 0.9rem);
-            font-weight: 300;
-            transition: color 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .social-link:hover {
-            color: var(--brand-gold);
-        }
-
-        .social-icon {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
         }
 
         .button-group {
@@ -175,6 +145,45 @@
             background-color: rgba(255,255,255,0.1);
         }
 
+        /* Bottom Bar */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: transparent;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--brand-gold);
+        }
+
+        .social-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
         @media (max-width: 768px) {
             .hero p { font-size: 0.8rem; }
             .btn { padding: 14px 24px; font-size: 0.75rem; }
@@ -191,16 +200,10 @@
 
     <header class="hero">
         
-        <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/profile%20color.png" alt="Profile Icon" class="brand-mark">
+        <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/logo_lines_wht.gif" alt="BFWE Logo" class="brand-mark">
         
         <div class="text-content">
             <p>Tobacco rise from the dirtiest roots possible: colonization, looting, slavery, exploitation, monopoly, manipulation and most importantly, continuous lies.</p>
-            <a href="https://youtube.com/@bfme" target="_blank" class="social-link" aria-label="YouTube">
-                <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                @bfme
-            </a>
         </div>
         
         <div class="button-group">
@@ -209,6 +212,15 @@
         </div>
 
     </header>
+
+    <div class="bottom-bar">
+        <a href="https://youtube.com/@bfme" target="_blank" class="social-link" aria-label="YouTube">
+            <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            @bfme
+        </a>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
