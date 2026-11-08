@@ -3,24 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey - BFWE</title>
+    <title>Survey | BFWE</title>
+    
+    <link rel="icon" type="image/gif" href="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/favcon_wht.gif">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sono:wght,MONO@200..800,1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Pinyon+Script&family=Sono:wght,MONO@200..800,1&display=swap" rel="stylesheet">
+
     <style>
-        :root { --bg-dark: #050505; --text-light: #ffffff; --font-body: 'Sono', monospace; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-dark); color: var(--text-light); height: 100vh; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); }
-        .container { text-align: center; }
-        h1 { font-size: 3rem; margin-bottom: 20px; }
-        a { color: var(--text-light); text-decoration: none; border: 1px solid var(--text-light); padding: 10px 20px; border-radius: 5px; }
-        a:hover { background: var(--text-light); color: var(--bg-dark); }
+        :root {
+            --brand-gold: #d99c45;
+            --bg-dark: #050505;
+            --text-light: #ffffff;
+            --text-muted: #bbbbbb;
+            --font-head: 'Dela Gothic One', sans-serif;
+            --font-body: 'Sono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            font-family: var(--font-body);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw; 
+            height: 100vh; 
+            object-fit: cover; 
+            z-index: -2; 
+            pointer-events: none; 
+            filter: brightness(0.5) saturate(0.8); 
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.9) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: transparent;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .home-btn img {
+            height: 40px;
+            width: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .home-btn img:hover {
+            opacity: 0.7;
+        }
+
+        .survey-container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .question-step {
+            display: none;
+            flex-direction: column;
+        }
+
+        .question-step.active {
+            display: flex;
+        }
+
+        label {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        input[type="email"], input[type="text"], textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin-bottom: 24px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--brand-gold);
+        }
+
+        button {
+            font-family: var(--font-body);
+            padding: 16px 32px;
+            background-color: var(--brand-gold);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        button:hover {
+            background-color: transparent;
+            color: var(--brand-gold);
+            box-shadow: 0 0 15px rgba(217, 156, 69, 0.2);
+        }
+
+        #status {
+            margin-top: 20px;
+            font-family: var(--font-body);
+            color: var(--brand-gold);
+            font-weight: 500;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Survey</h1>
-        <a href="index.html">Back to Home</a>
+
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/Oja.mp4" type="video/mp4">
+    </video>
+    
+    <div class="video-overlay"></div>
+
+    <div class="top-bar">
+        <a href="index.html" class="home-btn">
+            <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/logo_lines_wht.gif" alt="Home">
+        </a>
     </div>
+
+    <div class="survey-container">
+        <form id="quizForm">
+            
+            <div class="question-step active">
+                <label>What is your email address?</label>
+                <input type="email" name="userEmail" required>
+                <button type="button" onclick="next()">Next</button>
+            </div>
+
+            <div class="question-step">
+                <label>Question 1: How did you hear about us?</label>
+                <input type="text" name="q1" required>
+                <button type="button" onclick="next()">Next</button>
+            </div>
+
+            <div class="question-step">
+                <label>Question 2: What feature matters most to you?</label>
+                <textarea name="q2" rows="3" required></textarea>
+                <button type="button" onclick="next()">Next</button>
+            </div>
+
+            <div class="question-step">
+                <label>Question 3: Any additional comments?</label>
+                <textarea name="q3" rows="3"></textarea>
+                <button type="button" onclick="submitForm()">Submit</button>
+            </div>
+
+        </form>
+
+        <div id="status"></div>
+    </div>
+
+    <script>
+        // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+        const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+        function next() {
+            const current = document.querySelector('.question-step.active');
+            const inputs = current.querySelectorAll('input, textarea');
+            
+            for (const input of inputs) {
+                if (!input.checkValidity()) {
+                    input.reportValidity();
+                    return;
+                }
+            }
+            
+            const steps = document.querySelectorAll('.question-step');
+            const index = Array.from(steps).indexOf(current);
+            
+            if (index < steps.length - 1) {
+                current.classList.remove('active');
+                steps[index + 1].classList.add('active');
+            }
+        }
+
+        function submitForm() {
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            
+            const payload = {
+                userEmail: formData.get('userEmail'),
+                answers: {
+                    q1: formData.get('q1'),
+                    q2: formData.get('q2'),
+                    q3: formData.get('q3')
+                }
+            };
+
+            document.getElementById('status').textContent = "Submitting...";
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.result === "success") {
+                    document.getElementById('status').textContent = "Thank you! A confirmation email has been sent to " + payload.userEmail + ".";
+                    form.style.display = 'none';
+                } else {
+                    document.getElementById('status').textContent = "Error: " + data.message;
+                }
+            })
+            .catch(err => {
+                document.getElementById('status').textContent = "Submission failed. Please try again.";
+                console.error(err);
+            });
+        }
+    </script>
+
 </body>
 </html>
