@@ -37,29 +37,7 @@
             font-family: var(--font-body);
         }
 
-        #bg-video {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100vw; 
-            height: 100vh; 
-            object-fit: cover; 
-            z-index: -2; 
-            pointer-events: none; 
-            filter: brightness(0.5) saturate(0.8); 
-        }
-
-        .video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at center, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.9) 100%);
-            z-index: -1;
-            pointer-events: none;
-        }
+        /* Background video deactivated */
 
         .top-bar {
             position: fixed;
@@ -84,7 +62,7 @@
         }
 
         .home-btn img:hover {
-            opacity: 0.7;
+            content: url('https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/logo_lines_c.gif');
         }
 
         .bottom-bar {
@@ -128,72 +106,136 @@
         .content-wrapper {
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
             min-height: 100vh;
             padding: 120px 5% 120px;
             position: relative;
             z-index: 1;
-        }
-
-        .text-container {
-            max-width: 800px;
-            width: 100%;
-            text-align: left;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .text-container h1 {
             font-family: var(--font-head);
-            font-size: clamp(2rem, 5vw, 4rem);
+            font-size: clamp(1rem, 2.5vw, 2rem); /* Half size */
             font-weight: 400;
             margin-bottom: 40px;
             letter-spacing: -1px;
             text-transform: uppercase;
-            text-align: center;
+            text-align: left; /* Aligned to left */
         }
 
-        .text-container p {
-            font-family: var(--font-body);
-            font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-
-        .thumbnail-grid {
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin: 40px 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
             width: 100%;
         }
 
-        .thumbnail {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: contain;
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
             border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(0,0,0,0.4);
         }
 
-        .thumbnail:hover {
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: brightness(0.6);
+        }
+
+        .gallery-item:hover img {
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(217, 156, 69, 0.4);
-            border-color: var(--brand-gold);
+            filter: brightness(0.8);
         }
 
-        .btn-container {
-            margin-top: 40px;
-            text-align: center;
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            pointer-events: none;
+        }
+
+        .gallery-overlay h2 {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(5, 5, 5, 0.98);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 40px;
+            max-width: 1200px;
             width: 100%;
         }
 
-        .btn {
+        .modal-image-wrapper {
+            flex: 1;
+            max-height: 70vh;
+        }
+
+        .modal-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .modal-text-wrapper {
+            flex: 1;
+            color: var(--text-muted);
+        }
+
+        .modal-text-wrapper h2 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .modal-text-wrapper p {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .modal-close-btn {
+            margin-top: 40px;
             font-family: var(--font-body);
             display: inline-block;
             padding: 18px 45px; 
@@ -211,57 +253,26 @@
             cursor: pointer;
         }
 
-        .btn:hover {
+        .modal-close-btn:hover {
             border-color: var(--text-light);
             background-color: rgba(255,255,255,0.1);
         }
 
-        .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(5, 5, 5, 0.95);
-            z-index: 100;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-
-        .image-modal.active {
-            display: flex;
-        }
-
-        .image-modal img {
-            max-width: 90vw;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .thumbnail-grid {
-                grid-template-columns: repeat(2, 1fr);
+        @media (max-width: 900px) {
+            .modal-content {
+                flex-direction: column;
+                gap: 20px;
             }
-            .image-modal img {
-                max-width: 95vw;
-                max-height: 70vh;
+            .modal-image-wrapper {
+                max-height: 40vh;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-
-    <video autoplay loop muted playsinline id="bg-video">
-        <source src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/Chalkdog.mp4" type="video/mp4">
-    </video>
-    
-    <div class="video-overlay"></div>
 
     <div class="top-bar">
         <a href="index.html" class="home-btn">
@@ -271,53 +282,71 @@
 
     <div class="content-wrapper">
         <div class="text-container">
-            <h1>Know More</h1>
+            <h1>Get to know us</h1>
             
-            <p>Tobacco's history is deeply entangled with colonization, slavery, and the exploitation of labor. From its early cultivation in the Americas to its global expansion, the industry was built on systems of power and control that prioritized profit over human life.</p>
-            
-            <div class="thumbnail-grid">
-                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%201.jpeg" alt="Exhibition 1" class="thumbnail" onclick="openModal(this.src)">
-                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%202.jpeg" alt="Exhibition 2" class="thumbnail" onclick="openModal(this.src)">
-                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/fract%20holder%203.jpeg" alt="Exhibition 3" class="thumbnail" onclick="openModal(this.src)">
-                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%204.jpeg" alt="Exhibition 4" class="thumbnail" onclick="openModal(this.src)">
-            </div>
-            
-            <p>The industry has long relied on manipulation and misinformation. Through aggressive marketing, strategic lobbying, and the deliberate suppression of scientific evidence, tobacco companies have successfully delayed regulation and obscured the true health risks of their products for decades.</p>
-            
-            <p>Today, the legacy of continuous lies persists. As new products emerge and old tactics are repackaged, understanding this dark history is essential. We must examine the roots of the industry to fully grasp the ongoing impact it has on public health, global economies, and the environment.</p>
+            <div class="gallery-grid">
+                <!-- Category 1 -->
+                <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%201.jpeg', 'The Project', 'Tobacco\'s history is deeply entangled with colonization, slavery, and the exploitation of labor. From its early cultivation in the Americas to its global expansion, the industry was built on systems of power and control that prioritized profit over human life.')">
+                    <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%201.jpeg" alt="The Project">
+                    <div class="gallery-overlay">
+                        <h2>The Project</h2>
+                    </div>
+                </div>
 
-            <div class="btn-container">
-                <a href="index.html" class="btn">Back to Home</a>
+                <!-- Category 2 -->
+                <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%202.jpeg', 'Tobacco Industry', 'The industry has long relied on manipulation and misinformation. Through aggressive marketing, strategic lobbying, and the deliberate suppression of scientific evidence, tobacco companies have successfully delayed regulation and obscured the true health risks of their products for decades.')">
+                    <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%202.jpeg" alt="Tobacco Industry">
+                    <div class="gallery-overlay">
+                        <h2>Tobacco Industry</h2>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/fract%20holder%203.jpeg', 'About Us', 'Today, the legacy of continuous lies persists. As new products emerge and old tactics are repackaged, understanding this dark history is essential. We must examine the roots of the industry to fully grasp the ongoing impact it has on public health, global economies, and the environment.')">
+                    <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/fract%20holder%203.jpeg" alt="About Us">
+                    <div class="gallery-overlay">
+                        <h2>About Us</h2>
+                    </div>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%204.jpeg', 'The Survey', 'We want to hear from you. Your perspective is crucial to understanding the dynamics of connection and conflict in our modern world. Participate in our survey and share your insights to help shape the next phase of the project.')">
+                    <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%204.jpeg" alt="The Survey">
+                    <div class="gallery-overlay">
+                        <h2>The Survey</h2>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="bottom-bar">
-        <a href="https://youtube.com/@bfme" target="_blank" class="social-link" aria-label="YouTube">
+        <a href="https://youtube.com/@bf-we" target="_blank" class="social-link" aria-label="YouTube">
             <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
-            @bfme
+            @bfwe
         </a>
     </div>
 
     <div class="image-modal" id="imageModal">
-        <img id="modalImage" src="" alt="Expanded view">
-        <button class="btn" onclick="closeModal()">Return</button>
+        <div class="modal-content">
+            <div class="modal-image-wrapper">
+                <img id="modalImage" src="" alt="Expanded view">
+            </div>
+            <div class="modal-text-wrapper">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal()">Return</button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var video = document.getElementById('bg-video');
-            video.playbackRate = 0.20; 
-            
-            video.addEventListener('play', function() {
-                video.playbackRate = 0.20;
-            });
-        });
-
-        function openModal(src) {
-            document.getElementById('modalImage').src = src;
+        function openModal(imageSrc, title, description) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = description;
             document.getElementById('imageModal').classList.add('active');
         }
 

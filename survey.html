@@ -86,7 +86,7 @@
         }
 
         .home-btn img:hover {
-            opacity: 0.7;
+            content: url('https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/logo_lines_c.gif');
         }
 
         .bottom-bar {
@@ -138,6 +138,8 @@
             z-index: 1;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .question-step {
@@ -182,7 +184,65 @@
             border-color: var(--brand-gold);
         }
 
-        button {
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            outline: none;
+            margin: 20px 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--brand-gold);
+            cursor: pointer;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            color: var(--text-light);
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--brand-gold);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            align-self: flex-start;
+        }
+
+        .btn {
             font-family: var(--font-body);
             padding: 16px 32px;
             background-color: var(--brand-gold);
@@ -195,13 +255,27 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
-            align-self: flex-start;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        button:hover {
+        .btn:hover {
             background-color: transparent;
             color: var(--brand-gold);
             box-shadow: 0 0 15px rgba(217, 156, 69, 0.2);
+        }
+
+        .btn-back {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-back:hover {
+            border-color: var(--text-light);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            box-shadow: none;
         }
 
         #status {
@@ -211,6 +285,14 @@
             font-weight: 500;
             text-align: center;
             white-space: pre-line;
+            line-height: 1.6;
+        }
+
+        .home-return-btn {
+            display: none;
+            margin-top: 30px;
+            width: 100%;
+            text-align: center;
         }
 
     </style>
@@ -230,57 +312,93 @@
     </div>
 
     <div class="survey-container">
-        <form id="quizForm">
+        <form id="quizForm" onsubmit="event.preventDefault();">
             
-            <div class="question-step active">
+            <div class="question-step active" id="step-1">
                 <label>What is your email address?</label>
-                <input type="email" name="userEmail" required>
-                <button type="button" onclick="next()">Next</button>
+                <input type="email" name="userEmail" id="input-email" required>
+                <div class="btn-group">
+                    <button type="button" class="btn" onclick="next(1)">Next</button>
+                </div>
             </div>
 
-            <div class="question-step">
+            <div class="question-step" id="step-2">
                 <label>Tell us a bit about yourself.</label>
-                <input type="text" name="firstName" placeholder="First Name" required>
-                <input type="text" name="lastName" placeholder="Surname" required>
-                <select name="age" required>
+                <input type="text" name="firstName" id="input-firstName" placeholder="First Name" required>
+                <input type="text" name="lastName" id="input-lastName" placeholder="Surname" required>
+                <select name="age" id="input-age" required>
                     <option value="" disabled selected>Select your age group</option>
-                    <option value="-16">-16</option>
-                    <option value="17-34">17 - 34</option>
-                    <option value="35-64">35 - 64</option>
-                    <option value="65+">65+</option>
+                    <option value="under 16">under 16</option>
+                    <option value="17 • 25 years">17 • 25 years</option>
+                    <option value="26 • 34 years">26 • 34 years</option>
+                    <option value="35 • 43 years">35 • 43 years</option>
+                    <option value="44 • 52 years">44 • 52 years</option>
+                    <option value="53 • over 65 years">53 • over 65 years</option>
                 </select>
-                <button type="button" onclick="next()">Next</button>
+                <div class="btn-group">
+                    <button type="button" class="btn" onclick="next(2)">Next</button>
+                </div>
             </div>
 
-            <div class="question-step">
+            <div class="question-step" id="step-3">
                 <label>Question 1: How did you hear about us?</label>
-                <input type="text" name="q1" required>
-                <button type="button" onclick="next()">Next</button>
+                <input type="text" name="q1" id="input-q1" required>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prev(3)">Back</button>
+                    <button type="button" class="btn" onclick="next(3)">Next</button>
+                </div>
             </div>
 
-            <div class="question-step">
-                <label>Question 2: What feature matters most to you?</label>
-                <textarea name="q2" rows="3" required></textarea>
-                <button type="button" onclick="next()">Next</button>
+            <div class="question-step" id="step-4">
+                <label>How strong is your craving to smoke when you wake up?</label>
+                <input type="range" name="q2_craving" id="input-q2" min="0" max="10" value="5">
+                <div class="slider-labels">
+                    <span>Very strong</span>
+                    <span>None</span>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prev(4)">Back</button>
+                    <button type="button" class="btn" onclick="next(4)">Next</button>
+                </div>
             </div>
 
-            <div class="question-step">
-                <label>Question 3: Any additional comments?</label>
-                <textarea name="q3" rows="3"></textarea>
-                <button type="button" onclick="submitForm()">Submit</button>
+            <div class="question-step" id="step-5">
+                <label>Which of these are smokers in your family?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" name="q3_family" value="Mother" class="family-cb"> Mother</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_family" value="Father" class="family-cb"> Father</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_family" value="Other relatives" class="family-cb"> Other relatives</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_family" value="None" id="cb-none"> None</label>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prev(5)">Back</button>
+                    <button type="button" class="btn" onclick="next(5)">Next</button>
+                </div>
+            </div>
+
+            <div class="question-step" id="step-6">
+                <label>Question 4: Any additional comments?</label>
+                <textarea name="q4" id="input-q4" rows="3"></textarea>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prev(6)">Back</button>
+                    <button type="button" class="btn" onclick="submitForm()">Submit</button>
+                </div>
             </div>
 
         </form>
 
         <div id="status"></div>
+        <div class="home-return-btn" id="home-return">
+            <a href="index.html" class="btn">Return to Home</a>
+        </div>
     </div>
 
     <div class="bottom-bar">
-        <a href="https://youtube.com/@bfme" target="_blank" class="social-link" aria-label="YouTube">
+        <a href="https://youtube.com/@bf-we" target="_blank" class="social-link" aria-label="YouTube">
             <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
-            @bfme
+            @bfwe
         </a>
     </div>
 
@@ -292,13 +410,23 @@
             video.addEventListener('play', function() {
                 video.playbackRate = 0.20;
             });
+
+            setTimeout(() => {
+                const visitPayload = { type: "visit" };
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(visitPayload)
+                }).catch(err => console.log("Visit log error", err));
+            }, 10000);
         });
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyS90ofebzEjhWZY5z1puCBwAuySngjvupETV2KVOZvorkiVfuVN1JLT-erYCk8pqCvJg/exec";
 
-        function next() {
-            const current = document.querySelector('.question-step.active');
-            const inputs = current.querySelectorAll('input, textarea, select');
+        function next(currentStep) {
+            const currentDiv = document.getElementById('step-' + currentStep);
+            const inputs = currentDiv.querySelectorAll('input[required], select[required], textarea[required]');
             
             for (const input of inputs) {
                 if (!input.checkValidity()) {
@@ -306,29 +434,56 @@
                     return;
                 }
             }
-            
-            const steps = document.querySelectorAll('.question-step');
-            const index = Array.from(steps).indexOf(current);
-            
-            if (index < steps.length - 1) {
-                current.classList.remove('active');
-                steps[index + 1].classList.add('active');
+
+            if (currentStep === 1) {
+                document.getElementById('input-email').readOnly = true;
+                document.getElementById('input-email').style.opacity = '0.5';
             }
+
+            currentDiv.classList.remove('active');
+            document.getElementById('step-' + (currentStep + 1)).classList.add('active');
         }
+
+        function prev(currentStep) {
+            const currentDiv = document.getElementById('step-' + currentStep);
+            currentDiv.classList.remove('active');
+            document.getElementById('step-' + (currentStep - 1)).classList.add('active');
+        }
+
+        const checkboxes = document.querySelectorAll('.family-cb');
+        const noneCb = document.getElementById('cb-none');
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                if (cb.checked) noneCb.checked = false;
+            });
+        });
+
+        noneCb.addEventListener('change', () => {
+            if (noneCb.checked) {
+                checkboxes.forEach(cb => cb.checked = false);
+            }
+        });
 
         function submitForm() {
             const form = document.getElementById('quizForm');
             const formData = new FormData(form);
             
+            const family = [];
+            document.querySelectorAll('.family-cb:checked').forEach(cb => family.push(cb.value));
+            if (noneCb.checked) family.push("None");
+
             const payload = {
+                type: "survey",
                 userEmail: formData.get('userEmail'),
                 firstName: formData.get('firstName'),
                 lastName: formData.get('lastName'),
                 age: formData.get('age'),
                 answers: {
                     q1: formData.get('q1'),
-                    q2: formData.get('q2'),
-                    q3: formData.get('q3')
+                    q2: formData.get('q2_craving'),
+                    q3: family.join(', '),
+                    q4: formData.get('q4')
                 }
             };
 
@@ -345,9 +500,10 @@
                 body: JSON.stringify(payload)
             })
             .then(() => {
-                statusDiv.textContent = "Thank you for sharing!\nAn email has been sent to " + payload.userEmail + ".";
+                statusDiv.textContent = "Thank you for sharing!\nAn email has been sent to\n" + payload.userEmail;
                 statusDiv.style.color = "#d99c45";
                 form.style.display = 'none';
+                document.getElementById('home-return').style.display = 'block';
             })
             .catch(err => {
                 statusDiv.textContent = "Submission failed. Please try again.";
