@@ -60,6 +60,34 @@
             pointer-events: none;
         }
 
+        /* Top Bar */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: transparent;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .home-btn img {
+            height: 40px;
+            width: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .home-btn img:hover {
+            opacity: 0.7;
+        }
+
+        /* Main Content */
         .hero {
             height: 100vh;
             display: flex;
@@ -70,13 +98,6 @@
             padding: 0 5%;
             position: relative;
             z-index: 1;
-        }
-
-        .brand-mark {
-            width: clamp(60px, 8vw, 100px); 
-            height: auto;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 20px rgba(217, 156, 69, 0.4)); 
         }
 
         .hero h1 {
@@ -120,7 +141,6 @@
             border-color: var(--text-light);
             background-color: rgba(255,255,255,0.1);
         }
-
     </style>
 </head>
 <body>
@@ -131,16 +151,16 @@
     
     <div class="video-overlay"></div>
 
-    <header class="hero">
-        
-        <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/profile%20color.png" alt="Profile Icon" class="brand-mark">
-        
-        <h1>Know More</h1>
-        
-        <p>More information about the project is coming soon.</p>
-        
-        <a href="index.html" class="btn">Back to Home</a>
+    <div class="top-bar">
+        <a href="index.html" class="home-btn">
+            <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/logo_lines_wht.gif" alt="Home">
+        </a>
+    </div>
 
+    <header class="hero">
+        <h1>Know More</h1>
+        <p>More information about the project is coming soon.</p>
+        <a href="index.html" class="btn">Back to Home</a>
     </header>
 
 </body>
