@@ -30,9 +30,10 @@
         body {
             background-color: var(--bg-dark);
             color: var(--text-light);
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             font-family: var(--font-body);
         }
 
@@ -60,7 +61,6 @@
             pointer-events: none;
         }
 
-        /* Top Bar */
         .top-bar {
             position: fixed;
             top: 0;
@@ -87,37 +87,47 @@
             opacity: 0.7;
         }
 
-        /* Main Content */
-        .hero {
-            height: 100vh;
+        .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 0 5%;
+            min-height: 100vh;
+            padding: 120px 5% 60px;
             position: relative;
             z-index: 1;
         }
 
-        .hero h1 {
+        .text-container {
+            max-width: 800px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .text-container h1 {
             font-family: var(--font-head);
             font-size: clamp(2rem, 5vw, 4rem);
             font-weight: 400;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             letter-spacing: -1px;
             text-transform: uppercase;
+            text-align: center;
         }
 
-        .hero p {
+        .text-container p {
             font-family: var(--font-body);
-            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            font-size: clamp(0.95rem, 1.2vw, 1.1rem);
             font-weight: 300;
             letter-spacing: 0.5px;
             color: var(--text-muted);
-            margin-bottom: 50px;
-            max-width: 600px;
+            margin-bottom: 30px;
             line-height: 1.8;
+        }
+
+        .btn-container {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
         }
 
         .btn {
@@ -157,11 +167,21 @@
         </a>
     </div>
 
-    <header class="hero">
-        <h1>Know More</h1>
-        <p>More information about the project is coming soon.</p>
-        <a href="index.html" class="btn">Back to Home</a>
-    </header>
+    <div class="content-wrapper">
+        <div class="text-container">
+            <h1>Know More</h1>
+            
+            <p>Tobacco's history is deeply entangled with colonization, slavery, and the exploitation of labor. From its early cultivation in the Americas to its global expansion, the industry was built on systems of power and control that prioritized profit over human life.</p>
+            
+            <p>The industry has long relied on manipulation and misinformation. Through aggressive marketing, strategic lobbying, and the deliberate suppression of scientific evidence, tobacco companies have successfully delayed regulation and obscured the true health risks of their products for decades.</p>
+            
+            <p>Today, the legacy of continuous lies persists. As new products emerge and old tactics are repackaged, understanding this dark history is essential. We must examine the roots of the industry to fully grasp the ongoing impact it has on public health, global economies, and the environment.</p>
+
+            <div class="btn-container">
+                <a href="index.html" class="btn">Back to Home</a>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
