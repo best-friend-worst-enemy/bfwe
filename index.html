@@ -1,24 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Best Friend Worst Enemy</title>
-<style>
-  *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,sans-serif;background:#111;color:#f5f5f5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
-  main{max-width:640px;text-align:center}
-  h1{font-size:clamp(32px,6vw,64px);margin:0 0 16px;line-height:1.05}
-  p{color:#999;line-height:1.6;margin:0 0 32px}
-  a{display:inline-block;padding:14px 28px;background:#f5f5f5;color:#111;text-decoration:none;border-radius:6px;font-weight:700}
-  a:hover{opacity:.85}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE Creative Studio</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/gif" href="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/favcon_wht.gif">
+
+    <style>
+        :root {
+            --brand-gold: #d99c45;
+            --brand-light: #fce8cc;
+            --bg-dark: #0a0a0a;
+            --text-light: #f4f4f4;
+            --text-muted: #d0d0d0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* --- VIDEO BACKGROUND STYLES --- */
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw; 
+            height: 100vh; 
+            object-fit: cover; 
+            z-index: -2; 
+            pointer-events: none; 
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.65); 
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .nav-logo img {
+            height: 60px;
+            width: auto;
+            border-radius: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Change to 'center' to move the whole box to the middle of the screen */
+            padding: 0 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            max-width: 650px;
+            background: rgba(10, 10, 10, 0.6); 
+            padding: 50px 40px; /* Adjusted padding for a better centered look */
+            border-radius: 20px;
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            
+            /* NEW: Centers all content inside the glass box */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center; 
+        }
+
+        .brand-mark {
+            width: 120px; 
+            height: auto;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-text h1 span {
+            color: var(--brand-gold);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 90%; /* Keeps the text from touching the edges of the box */
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--brand-gold);
+            color: var(--bg-dark);
+            padding: 15px 40px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 15px rgba(217, 156, 69, 0.3);
+            
+            /* NEW: Adjustable spacing above the button */
+            margin-top: 20px; 
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            background-color: var(--brand-light);
+            box-shadow: 0 6px 20px rgba(217, 156, 69, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            #bg-video {
+                width: 100vw; 
+                height: 100vh;
+            }
+            
+            .hero {
+                justify-content: center;
+                padding-top: 100px;
+            }
+
+            .hero-text {
+                padding: 30px 20px;
+                background: rgba(10, 10, 10, 0.8); 
+                width: 100%; /* Makes the box fill more width on mobile */
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                display: none; 
+            }
+            
+            .nav-logo img {
+                height: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
-<main>
-  <h1>Best Friend Worst Enemy</h1>
-  <p>Project landing page placeholder. Description and details will go here.</p>
-  <a href="questionnaire.html">Take the questionnaire</a>
-</main>
+
+    <!-- VIDEO BACKGROUND -->
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/Oja.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <!-- Dark Overlay for readability -->
+    <div class="video-overlay"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">
+            <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/logo_lines_wht.gif" alt="BE Animated Logo">
+        </div>
+        
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-text">
+            <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/profile%20color.png" alt="Profile Icon" class="brand-mark">
+            
+            <h1>Shaping <span>Ideas</span> Into Reality.</h1>
+            <p>We are a multidisciplinary design studio specializing in 3D art, brand identity, and digital experiences. We bring your boldest concepts to life.</p>
+            <a href="#contact" class="cta-button">Start a Project</a>
+        </div>
+    </header>
+
+    <!-- JAVASCRIPT TO SLOW DOWN THE VIDEO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('bg-video');
+            video.playbackRate = 0.5;
+            
+            video.addEventListener('play', function() {
+                video.playbackRate = 0.5;
+            });
+        });
+    </script>
+
 </body>
 </html>
