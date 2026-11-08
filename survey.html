@@ -252,7 +252,15 @@
     </div>
 
     <script>
-        // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('bg-video');
+            video.playbackRate = 0.10; 
+            
+            video.addEventListener('play', function() {
+                video.playbackRate = 0.10;
+            });
+        });
+
         const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
 
         function next() {

@@ -135,11 +135,12 @@
         .thumbnail {
             width: 100%;
             aspect-ratio: 1 / 1;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.4);
         }
 
         .thumbnail:hover {
@@ -177,7 +178,6 @@
             background-color: rgba(255,255,255,0.1);
         }
 
-        /* Image Modal / Exhibition View */
         .image-modal {
             display: none;
             position: fixed;
@@ -238,10 +238,10 @@
             <p>Tobacco's history is deeply entangled with colonization, slavery, and the exploitation of labor. From its early cultivation in the Americas to its global expansion, the industry was built on systems of power and control that prioritized profit over human life.</p>
             
             <div class="thumbnail-grid">
-                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%201.png" alt="Exhibition 1" class="thumbnail" onclick="openModal(this.src)">
-                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%202.png" alt="Exhibition 2" class="thumbnail" onclick="openModal(this.src)">
-                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%203.png" alt="Exhibition 3" class="thumbnail" onclick="openModal(this.src)">
-                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%204.png" alt="Exhibition 4" class="thumbnail" onclick="openModal(this.src)">
+                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%201.jpeg" alt="Exhibition 1" class="thumbnail" onclick="openModal(this.src)">
+                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%202.jpeg" alt="Exhibition 2" class="thumbnail" onclick="openModal(this.src)">
+                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/fract%20holder%203.jpeg" alt="Exhibition 3" class="thumbnail" onclick="openModal(this.src)">
+                <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/frac%20holder%204.jpeg" alt="Exhibition 4" class="thumbnail" onclick="openModal(this.src)">
             </div>
             
             <p>The industry has long relied on manipulation and misinformation. Through aggressive marketing, strategic lobbying, and the deliberate suppression of scientific evidence, tobacco companies have successfully delayed regulation and obscured the true health risks of their products for decades.</p>
@@ -254,13 +254,21 @@
         </div>
     </div>
 
-    <!-- Image Exhibition Modal -->
     <div class="image-modal" id="imageModal">
         <img id="modalImage" src="" alt="Expanded view">
         <button class="btn" onclick="closeModal()">Return</button>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('bg-video');
+            video.playbackRate = 0.15; 
+            
+            video.addEventListener('play', function() {
+                video.playbackRate = 0.15;
+            });
+        });
+
         function openModal(src) {
             document.getElementById('modalImage').src = src;
             document.getElementById('imageModal').classList.add('active');
@@ -271,7 +279,6 @@
             document.getElementById('modalImage').src = '';
         }
 
-        // Close modal on Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
