@@ -102,42 +102,45 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh; 
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Change to 'center' to move the whole box to the middle of the screen */
-            padding: 0 5%;
+            justify-content: center; 
+            padding: 120px 5% 60px 5%; 
             position: relative;
             z-index: 1;
         }
 
+        /* --- SCALABLE MAIN AREA --- */
         .hero-text {
-            max-width: 650px;
+            width: 90%; 
+            max-width: 850px; 
             background: rgba(10, 10, 10, 0.6); 
-            padding: 50px 40px; /* Adjusted padding for a better centered look */
+            padding: 5vh 5%; 
             border-radius: 20px;
             backdrop-filter: blur(10px); 
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             
-            /* NEW: Centers all content inside the glass box */
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center; 
         }
 
+        /* --- SCALABLE PROFILE LOGO --- */
         .brand-mark {
-            width: 120px; 
+            width: clamp(80px, 20%, 200px); 
             height: auto;
-            margin-bottom: 25px;
+            margin-bottom: 3vh;
             display: block;
+            transition: width 0.3s ease; 
         }
 
         .hero-text h1 {
-            font-size: 4.5rem;
+            font-size: clamp(2.5rem, 5vw, 4.5rem); 
             line-height: 1.1;
-            margin-bottom: 25px;
+            margin-bottom: 2vh;
             font-weight: 800;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
@@ -147,55 +150,69 @@
         }
 
         .hero-text p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
             color: var(--text-light);
-            margin-bottom: 30px;
+            margin-bottom: 4vh;
             line-height: 1.6;
-            max-width: 90%; /* Keeps the text from touching the edges of the box */
+            max-width: 90%;
         }
 
-        .cta-button {
+        /* --- BUTTON CONTAINER --- */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap; /* Allows buttons to stack on small screens */
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn {
             display: inline-block;
-            background-color: var(--brand-gold);
-            color: var(--bg-dark);
-            padding: 15px 40px;
+            padding: 15px 40px; 
             text-decoration: none;
             font-weight: bold;
             border-radius: 30px;
-            font-size: 1.1rem;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            box-shadow: 0 4px 15px rgba(217, 156, 69, 0.3);
-            
-            /* NEW: Adjustable spacing above the button */
-            margin-top: 20px; 
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            text-align: center;
+            min-width: 200px; /* Ensures buttons are a decent size */
         }
 
-        .cta-button:hover {
+        /* Primary Button (Know More) */
+        .btn-primary {
+            background-color: var(--brand-gold);
+            color: var(--bg-dark);
+            box-shadow: 0 4px 15px rgba(217, 156, 69, 0.3);
+        }
+
+        .btn-primary:hover {
             transform: translateY(-3px);
             background-color: var(--brand-light);
             box-shadow: 0 6px 20px rgba(217, 156, 69, 0.5);
         }
 
+        /* Secondary Button (Survey) */
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--brand-gold);
+            border: 2px solid var(--brand-gold);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            background-color: var(--brand-gold);
+            color: var(--bg-dark);
+        }
+
         /* Responsive Design */
         @media (max-width: 900px) {
-            #bg-video {
-                width: 100vw; 
-                height: 100vh;
+            .hero-text {
+                padding: 40px 20px;
+                background: rgba(10, 10, 10, 0.85); 
             }
             
-            .hero {
-                justify-content: center;
-                padding-top: 100px;
-            }
-
-            .hero-text {
-                padding: 30px 20px;
-                background: rgba(10, 10, 10, 0.8); 
-                width: 100%; /* Makes the box fill more width on mobile */
-            }
-
-            .hero-text h1 {
-                font-size: 3rem;
+            .hero-text p {
+                max-width: 100%;
             }
 
             .nav-links {
@@ -236,11 +253,18 @@
     <!-- Hero Section -->
     <header class="hero">
         <div class="hero-text">
+            <!-- Scalable Profile Logo -->
             <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/profile%20color.png" alt="Profile Icon" class="brand-mark">
             
             <h1>Shaping <span>Ideas</span> Into Reality.</h1>
             <p>We are a multidisciplinary design studio specializing in 3D art, brand identity, and digital experiences. We bring your boldest concepts to life.</p>
-            <a href="#contact" class="cta-button">Start a Project</a>
+            
+            <!-- BUTTONS ADDED HERE -->
+            <div class="button-group">
+                <a href="know-more.html" class="btn btn-primary">Know more</a>
+                <a href="https://best-friend-worst-enemy.github.io/bfwe/questionnaire.html" target="_blank" class="btn btn-secondary">Survey</a>
+            </div>
+            
         </div>
     </header>
 
