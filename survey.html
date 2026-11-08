@@ -89,6 +89,33 @@
             opacity: 0.7;
         }
 
+        .social-header {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .social-header:hover {
+            color: var(--brand-gold);
+        }
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
         .survey-container {
             width: 100%;
             max-width: 600px;
@@ -100,6 +127,7 @@
             z-index: 1;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            margin-top: 40px;
         }
 
         .question-step {
@@ -173,7 +201,7 @@
 <body>
 
     <video autoplay loop muted playsinline id="bg-video">
-        <source src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/Oja.mp4" type="video/mp4">
+        <source src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/Chalkdog.mp4" type="video/mp4">
     </video>
     
     <div class="video-overlay"></div>
@@ -183,6 +211,13 @@
             <img src="https://raw.githubusercontent.com/best-friend-worst-enemy/bfwe/main/logo_lines_wht.gif" alt="Home">
         </a>
     </div>
+
+    <a href="https://youtube.com/@bfme" target="_blank" class="social-header" aria-label="YouTube">
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        @bfme
+    </a>
 
     <div class="survey-container">
         <form id="quizForm">
@@ -218,7 +253,7 @@
 
     <script>
         // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyS90ofebzEjhWZY5z1puCBwAuySngjvupETV2KVOZvorkiVfuVN1JLT-erYCk8pqCvJg/exec";
+        const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
 
         function next() {
             const current = document.querySelector('.question-step.active');
@@ -253,23 +288,26 @@
                 }
             };
 
-            document.getElementById('status').textContent = "Submitting...";
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = "Submitting...";
+            statusDiv.style.color = "#bbbbbb";
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
                 body: JSON.stringify(payload)
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.result === "success") {
-                    document.getElementById('status').textContent = "</b>Thank you! </br>A confirmation email has been sent to " + payload.userEmail + ".";
-                    form.style.display = 'none';
-                } else {
-                    document.getElementById('status').textContent = "Error: " + data.message;
-                }
+            .then(() => {
+                statusDiv.textContent = "Thank you! A confirmation email has been sent to " + payload.userEmail + ".";
+                statusDiv.style.color = "#d99c45";
+                form.style.display = 'none';
             })
             .catch(err => {
-                document.getElementById('status').textContent = "Submission failed. Please try again.";
+                statusDiv.textContent = "Submission failed. Please try again.";
+                statusDiv.style.color = "#c55";
                 console.error(err);
             });
         }
