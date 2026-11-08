@@ -87,13 +87,51 @@
             opacity: 0.7;
         }
 
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: transparent;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--brand-gold);
+        }
+
+        .social-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
         .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 120px 5% 60px;
+            padding: 120px 5% 120px;
             position: relative;
             z-index: 1;
         }
@@ -254,6 +292,15 @@
         </div>
     </div>
 
+    <div class="bottom-bar">
+        <a href="https://youtube.com/@bfme" target="_blank" class="social-link" aria-label="YouTube">
+            <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            @bfme
+        </a>
+    </div>
+
     <div class="image-modal" id="imageModal">
         <img id="modalImage" src="" alt="Expanded view">
         <button class="btn" onclick="closeModal()">Return</button>
@@ -262,10 +309,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
-            video.playbackRate = 0.15; 
+            video.playbackRate = 0.20; 
             
             video.addEventListener('play', function() {
-                video.playbackRate = 0.15;
+                video.playbackRate = 0.20;
             });
         });
 

@@ -1,3 +1,4 @@
+<!-- SURVEY PAGE -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,12 +90,23 @@
             opacity: 0.7;
         }
 
-        .social-header {
-            position: absolute;
-            top: 85px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9;
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: transparent;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -106,13 +118,13 @@
             transition: color 0.3s ease;
         }
 
-        .social-header:hover {
+        .social-link:hover {
             color: var(--brand-gold);
         }
 
         .social-icon {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             fill: currentColor;
         }
 
@@ -127,7 +139,6 @@
             z-index: 1;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            margin-top: 40px;
         }
 
         .question-step {
@@ -148,7 +159,7 @@
             font-weight: 400;
         }
 
-        input[type="email"], input[type="text"], textarea {
+        input[type="email"], input[type="text"], textarea, select {
             width: 100%;
             padding: 16px;
             background: rgba(0, 0, 0, 0.5);
@@ -162,7 +173,13 @@
             transition: border-color 0.3s;
         }
 
-        input:focus, textarea:focus {
+        select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        input:focus, textarea:focus, select:focus {
             border-color: var(--brand-gold);
         }
 
@@ -194,6 +211,7 @@
             color: var(--brand-gold);
             font-weight: 500;
             text-align: center;
+            white-space: pre-line;
         }
 
     </style>
@@ -212,19 +230,72 @@
         </a>
     </div>
 
-    <a href="https://youtube.com/@bfme" target="_blank" class="social-header" aria-label="YouTube">
-        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-        </svg>
-        @bfme
-    </a>
-
     <div class="survey-container">
         <form id="quizForm">
             
             <div class="question-step active">
                 <label>What is your email address?</label>
                 <input type="email" name="userEmail" required>
+                <button type="button" onclick="next()">Next</button>
+            </div>
+
+            <div class="question-step">
+                <label>Tell us a bit about yourself.</label>
+                <input type="text" name="firstName" placeholder="First Name" required>
+                <input type="text" name="lastName" placeholder="Surname" required>
+                <select name="age" required>
+                    <option value="" disabled selected>Select your age</option>
+                    <option value="-16">-16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+                    <option value="33">33</option>
+                    <option value="34">34</option>
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                    <option value="47">47</option>
+                    <option value="48">48</option>
+                    <option value="49">49</option>
+                    <option value="50">50</option>
+                    <option value="51">51</option>
+                    <option value="52">52</option>
+                    <option value="53">53</option>
+                    <option value="54">54</option>
+                    <option value="55">55</option>
+                    <option value="56">56</option>
+                    <option value="57">57</option>
+                    <option value="58">58</option>
+                    <option value="59">59</option>
+                    <option value="60">60</option>
+                    <option value="61">61</option>
+                    <option value="62">62</option>
+                    <option value="63">63</option>
+                    <option value="64">64</option>
+                    <option value="65+">65+</option>
+                </select>
                 <button type="button" onclick="next()">Next</button>
             </div>
 
@@ -251,21 +322,30 @@
         <div id="status"></div>
     </div>
 
+    <div class="bottom-bar">
+        <a href="https://youtube.com/@bfme" target="_blank" class="social-link" aria-label="YouTube">
+            <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            @bfme
+        </a>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
-            video.playbackRate = 0.10; 
+            video.playbackRate = 0.20; 
             
             video.addEventListener('play', function() {
-                video.playbackRate = 0.10;
+                video.playbackRate = 0.20;
             });
         });
 
-        const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyS90ofebzEjhWZY5z1puCBwAuySngjvupETV2KVOZvorkiVfuVN1JLT-erYCk8pqCvJg/exec";
 
         function next() {
             const current = document.querySelector('.question-step.active');
-            const inputs = current.querySelectorAll('input, textarea');
+            const inputs = current.querySelectorAll('input, textarea, select');
             
             for (const input of inputs) {
                 if (!input.checkValidity()) {
@@ -289,6 +369,9 @@
             
             const payload = {
                 userEmail: formData.get('userEmail'),
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                age: formData.get('age'),
                 answers: {
                     q1: formData.get('q1'),
                     q2: formData.get('q2'),
@@ -309,7 +392,7 @@
                 body: JSON.stringify(payload)
             })
             .then(() => {
-                statusDiv.textContent = "Thank you! A confirmation email has been sent to " + payload.userEmail + ".";
+                statusDiv.textContent = "Thank you for sharing!\nAn email has been sent to " + payload.userEmail + ".";
                 statusDiv.style.color = "#d99c45";
                 form.style.display = 'none';
             })
