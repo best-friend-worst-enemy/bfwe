@@ -382,7 +382,6 @@
                 </div>
             </div>
 
-            <!-- Location Step -->
             <div class="question-step" id="step-6">
                 <label>Where are you from?</label>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">
@@ -426,7 +425,6 @@
                         <option value="Switzerland">Switzerland</option>
                         <option value="United Kingdom">United Kingdom</option>
                         <option value="United States">United States</option>
-                        <!-- Add more as needed -->
                     </select>
                 </div>
 
@@ -458,7 +456,7 @@
             <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
-            @bfwe
+            @bf-we
         </a>
     </div>
 
@@ -467,7 +465,6 @@
         let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
         let preciseLocationGranted = false;
 
-        // Fetch network/IP data in the background to populate city/IP initially
         fetch('https://ipwho.is/')
             .then(res => res.json())
             .then(data => {
@@ -501,7 +498,6 @@
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
                         
-                        // Save the Maps link
                         ipData.area = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
                         preciseLocationGranted = true;
                         
@@ -509,7 +505,6 @@
                         geoStatus.style.color = "#d99c45";
                         geoBtn.style.display = 'none';
 
-                        // Reverse geocode to get the country based on lat/lon
                         try {
                             const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
                             const geoData = await geoRes.json();
@@ -556,17 +551,14 @@
                 }
             }
 
-            // Logic for Step 6 (Location)
             if (currentStep === 6) {
                 const selectedCountry = document.getElementById('input-country').value;
                 
-                // If user didn't grant precise location and didn't select a country
                 if (!preciseLocationGranted && !selectedCountry) {
                     alert("Please either select your country from the list or allow precise location.");
                     return;
                 }
 
-                // If they selected a country but didn't grant location, set area to just the country name
                 if (!preciseLocationGranted && selectedCountry) {
                     ipData.area = selectedCountry;
                     ipData.country = selectedCountry; 
