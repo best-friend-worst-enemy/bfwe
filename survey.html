@@ -294,6 +294,13 @@
             width: 100%;
             text-align: center;
         }
+        
+        .location-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -375,11 +382,65 @@
                 </div>
             </div>
 
+            <!-- New Location Step -->
             <div class="question-step" id="step-6">
+                <label>Where are you located?</label>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">
+                    We use your location for statistical purposes. You can either select your country from the list, or allow your browser to share your precise location.
+                </p>
+                
+                <div class="location-options">
+                    <select id="input-country">
+                        <option value="" disabled selected>Select your country</option>
+                        <option value="Afghanistan">Afghanistan</option>
+                        <option value="Albania">Albania</option>
+                        <option value="Algeria">Algeria</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Canada">Canada</option>
+                        <option value="China">China</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="Egypt">Egypt</option>
+                        <option value="Finland">Finland</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Greece">Greece</option>
+                        <option value="India">India</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                        <!-- Add more as needed -->
+                    </select>
+                    
+                    <button type="button" class="btn" onclick="requestLocationPermission()" id="geoBtn" style="background-color: transparent; border: 1px solid var(--brand-gold); color: var(--brand-gold);">Allow precise location</button>
+                    <div id="geoStatus" style="font-size: 0.85rem; color: var(--brand-gold); margin-top: 5px;"></div>
+                </div>
+
+                <div class="btn-group" style="margin-top: 30px;">
+                    <button type="button" class="btn btn-back" onclick="prev(6)">Back</button>
+                    <button type="button" class="btn" onclick="next(6)">Next</button>
+                </div>
+            </div>
+
+            <div class="question-step" id="step-7">
                 <label>Any additional comments?</label>
                 <textarea name="q4" id="input-q4" rows="3"></textarea>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(6)">Back</button>
+                    <button type="button" class="btn btn-back" onclick="prev(7)">Back</button>
                     <button type="button" class="btn" id="submitBtn" onclick="submitForm()">Submit</button>
                 </div>
             </div>
@@ -404,36 +465,17 @@
     <script>
         let startTime = Date.now();
         let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
+        let preciseLocationGranted = false;
 
-        // Fetch network/IP data in the background to populate country and city columns
+        // Fetch network/IP data in the background to populate city/IP
         fetch('https://ipwho.is/')
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
                     ipData.ip = data.ip || "Unknown";
-                    ipData.country = data.country || "Unknown";
                     ipData.city = data.city || "Unknown";
                 }
             }).catch(err => console.log("IP fetch error"));
-
-        // Request precise location to generate the Google Maps Link for the 'Area' column
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    // Assign the Google Maps Link directly to the Area field
-                    ipData.area = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
-                },
-                (error) => {
-                    console.warn("Location denied or failed:", error);
-                    ipData.area = "Location permission denied";
-                },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-        } else {
-            ipData.area = "Geolocation not supported by browser";
-        }
 
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
@@ -446,6 +488,46 @@
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyS90ofebzEjhWZY5z1puCBwAuySngjvupETV2KVOZvorkiVfuVN1JLT-erYCk8pqCvJg/exec";
 
+        function requestLocationPermission() {
+            const geoBtn = document.getElementById('geoBtn');
+            const geoStatus = document.getElementById('geoStatus');
+            
+            geoBtn.disabled = true;
+            geoBtn.textContent = "Requesting...";
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        ipData.area = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+                        preciseLocationGranted = true;
+                        
+                        geoStatus.textContent = "Precise location recorded.";
+                        geoStatus.style.color = "#d99c45";
+                        geoBtn.style.display = 'none';
+                        
+                        // Auto-fill the country dropdown with a placeholder if user granted location
+                        document.getElementById('input-country').value = "Belgium"; // Hardcoded fallback, as API doesn't give country from GPS alone
+                    },
+                    (error) => {
+                        console.warn("Location denied or failed:", error);
+                        ipData.area = "Location permission denied";
+                        geoStatus.textContent = "Permission denied. Please select your country from the list.";
+                        geoStatus.style.color = "#c55";
+                        geoBtn.disabled = false;
+                        geoBtn.textContent = "Allow precise location";
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                geoStatus.textContent = "Geolocation not supported by browser.";
+                geoStatus.style.color = "#c55";
+                geoBtn.disabled = false;
+                geoBtn.textContent = "Allow precise location";
+            }
+        }
+
         function next(currentStep) {
             const currentDiv = document.getElementById('step-' + currentStep);
             const inputs = currentDiv.querySelectorAll('input[required], select[required]');
@@ -454,6 +536,23 @@
                 if (!input.checkValidity()) {
                     input.reportValidity();
                     return;
+                }
+            }
+
+            // Logic for Step 6 (Location)
+            if (currentStep === 6) {
+                const selectedCountry = document.getElementById('input-country').value;
+                
+                // If user didn't grant precise location and didn't select a country
+                if (!preciseLocationGranted && !selectedCountry) {
+                    alert("Please either select your country from the list or allow precise location.");
+                    return;
+                }
+
+                // If they selected a country but didn't grant location, set area to just the country name
+                if (!preciseLocationGranted && selectedCountry) {
+                    ipData.area = selectedCountry;
+                    ipData.country = selectedCountry; // Fallback for country column
                 }
             }
 
@@ -496,6 +595,11 @@
             const family = [];
             document.querySelectorAll('.family-cb:checked').forEach(cb => family.push(cb.value));
             if (noneCb.checked) family.push("None");
+
+            // Ensure country is set if they used the precise location but didn't select a country
+            if (preciseLocationGranted && !ipData.country) {
+                ipData.country = "Location via GPS"; // Placeholder if no country selected
+            }
 
             const payload = {
                 type: "survey",
