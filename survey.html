@@ -294,7 +294,6 @@
             width: 100%;
             text-align: center;
         }
-
     </style>
 </head>
 <body>
@@ -406,43 +405,34 @@
         let startTime = Date.now();
         let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
 
-        // 1. Get precise coordinates and build a Google Maps link
+        // Fetch network/IP data in the background to populate country and city columns
+        fetch('https://ipwho.is/')
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    ipData.ip = data.ip || "Unknown";
+                    ipData.country = data.country || "Unknown";
+                    ipData.city = data.city || "Unknown";
+                }
+            }).catch(err => console.log("IP fetch error"));
+
+        // Request precise location to generate the Google Maps Link for the 'Area' column
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
-                    // Construct the Google Maps URL using the coordinates
-                    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
-                    ipData.area = mapsUrl; // Store the link in the 'area' field
+                    // Assign the Google Maps Link directly to the Area field
+                    ipData.area = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
                 },
                 (error) => {
-                    console.warn("Geolocation permission denied or unavailable:", error);
-                    // Fallback: fetch IP-based location if user denies geolocation
-                    fetchIPFallback();
+                    console.warn("Location denied or failed:", error);
+                    ipData.area = "Location permission denied";
                 },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
             );
         } else {
-            // Browser doesn't support Geolocation
-            fetchIPFallback();
-        }
-
-        // Fallback function to get approximate location from IP
-        async function fetchIPFallback() {
-            try {
-                const response = await fetch('https://ipwho.is/');
-                const data = await response.json();
-                if(data.success) {
-                    ipData.ip = data.ip || "Unknown";
-                    ipData.country = data.country || "Unknown";
-                    ipData.city = data.city || "Unknown";
-                    // If geolocation failed, use the city/region as the area
-                    ipData.area = data.connection.neighborhood || data.city || "Unknown"; 
-                }
-            } catch (error) {
-                console.error("Failed to fetch IP fallback:", error);
-            }
+            ipData.area = "Geolocation not supported by browser";
         }
 
         document.addEventListener('DOMContentLoaded', function() {
