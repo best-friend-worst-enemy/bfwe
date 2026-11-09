@@ -381,7 +381,7 @@
                 <textarea name="q4" id="input-q4" rows="3"></textarea>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(6)">Back</button>
-                    <button type="button" class="btn" onclick="submitForm()">Submit</button>
+                    <button type="button" class="btn" id="submitBtn" onclick="submitForm()">Submit</button>
                 </div>
             </div>
 
@@ -507,7 +507,10 @@
             const statusDiv = document.getElementById('status');
             statusDiv.textContent = "Submitting...";
             statusDiv.style.color = "#bbbbbb";
-            document.getElementById('submitBtn').disabled = true;
+            
+            // Properly disable the button now that it has the ID
+            const submitBtn = document.getElementById('submitBtn');
+            if (submitBtn) submitBtn.disabled = true;
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
@@ -526,6 +529,7 @@
             .catch(err => {
                 statusDiv.textContent = "Submission failed. Please try again.";
                 statusDiv.style.color = "#c55";
+                if (submitBtn) submitBtn.disabled = false;
                 console.error(err);
             });
         }
