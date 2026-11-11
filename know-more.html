@@ -283,12 +283,30 @@
             text-align: center;
         }
 
+        /* Default image styling inside modal */
         .modal-body img {
             width: 100%;
             height: auto;
             border-radius: 8px;
             margin: 20px 0;
             display: block;
+        }
+
+        /* Specific override for floated images to fix the conflict */
+        .modal-body .img-small-left {
+            float: left;
+            width: 35%;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .modal-body .img-small-right {
+            float: right;
+            width: 35%;
+            margin-left: 20px;
+            margin-bottom: 10px;
+            display: inline-block;
         }
 
         .modal-body .caption {
@@ -310,7 +328,6 @@
             text-decoration: underline;
         }
 
-        /* Image Layout Classes from DOCX */
         .img-side-by-side {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -320,22 +337,6 @@
 
         .img-side-by-side img {
             margin: 0;
-        }
-
-        .img-small-left {
-            float: left;
-            width: 35%;
-            margin-right: 20px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-        }
-
-        .img-small-right {
-            float: right;
-            width: 35%;
-            margin-left: 20px;
-            margin-bottom: 10px;
-            border-radius: 8px;
         }
 
         .clearfix::after {
@@ -411,7 +412,7 @@
             .img-side-by-side {
                 grid-template-columns: 1fr;
             }
-            .img-small-left, .img-small-right {
+            .modal-body .img-small-left, .modal-body .img-small-right {
                 float: none;
                 width: 100%;
                 margin: 20px 0;
