@@ -347,6 +347,18 @@
             margin: 0;
         }
 
+        .img-centered-small {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .img-centered-small img {
+            max-width: 50%;
+            margin-bottom: 10px;
+        }
+
         .modal-footer {
             display: flex;
             justify-content: center;
@@ -419,6 +431,9 @@
             }
             .img-inline-container img {
                 width: 100%;
+            }
+            .img-centered-small img {
+                max-width: 100%;
             }
         }
     </style>
@@ -554,11 +569,9 @@
                     
                     <p>When people think about abstraction as an art concept, the direct connection is with the famous paintings portrayed by masters such as Picasso, Miró, Kandinsky or even Calder's kinetic mobiles. There are only a few artists working exclusively with 3D abstract art and most of them are focused on digital creation for physical applications, as beautifully done lately by Jesse Kanda, Wieki Somers, Stephanie Lempert and others.</p>
                     
-                    <div class="img-inline-container left">
-                        <img src="Assets/2-know-more/3.2-kandinsky.jpg" alt="Kandinsky" style="width: 50%;">
-                        <div>
-                            <span class="caption" style="text-align: left; margin-top: 0;">"To the unknown voice" • 1916 • Kandinsky watercolor to Nina Andreevskaya, after falling in love with the voice on the phone, who became his wife one year later.</span>
-                        </div>
+                    <div class="img-centered-small">
+                        <img src="Assets/2-know-more/3.2-kandinsky.jpg" alt="Kandinsky">
+                        <span class="caption">"To the unknown voice" • 1916 • Kandinsky watercolor to Nina Andreevskaya, after falling in love with the voice on the phone, who became his wife one year later.</span>
                     </div>
                     
                     <p>The first visual concept of this project, is a derivative of a digital art assignment from when I was in university, that consisted in creating political portraits using multiple published pictures of these figures and assembling them as deformed likeness, in order to convey all the misleading that these politicians perpetuate. It started as a mix of photo collage with likeness abstraction (examples above). This concept stayed dormant for many years, until my self taught 3D modeling and animation studies developed. The passion for shapes and colors, combined with the possibility to turn them into portraits, allow me to describe a person's features, particularities and stories keeping the viewer intrigued by not knowing who is the interlocutor.</p>
@@ -570,10 +583,11 @@
                     
                     <p>Working with 3D modeling softwares, provides tools that can automate the process at the cost of lack of control. Similar to the contemporary AI art experiments, the artists have creation resources at the expense of an unknown and many times, uncontrolled output. In my approach, I've used the software as a virtual studio space where I can create basic forms, manipulate, shatter these forms in multiple random shapes and assemble it back into still or animated portraits.</p>
                     
-                    <div class="img-inline-container right">
+                    <div class="img-centered-small">
                         <img src="Assets/2-know-more/3.5-smoker.jpeg" alt="Deconstructed Portrait">
-                        <p>At first glance, the main results of this creation process are still images to be printed in paper, however with the adventure of actual technologies, these artworks can be conveyed into animations, projected, 3D printed, mixed reality environments, extruded, etched and depending on the available resources, even holographically displayed. The ambition for the first showcase is more to create the space and representation of people's stories than promoting the art craft itself. The more resources and technologies that we can allocate for this exhibition, the more compelling the viewer might react.</p>
                     </div>
+                    
+                    <p>At first glance, the main results of this creation process are still images to be printed in paper, however with the adventure of actual technologies, these artworks can be conveyed into animations, projected, 3D printed, mixed reality environments, extruded, etched and depending on the available resources, even holographically displayed. The ambition for the first showcase is more to create the space and representation of people's stories than promoting the art craft itself. The more resources and technologies that we can allocate for this exhibition, the more compelling the viewer might react.</p>
                     
                     <img src="Assets/2-know-more/3.6-oja.png" alt="Oja" style="width: 100%; max-width: 600px; margin: 20px auto;">
 
