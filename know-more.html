@@ -310,7 +310,32 @@
             text-decoration: underline;
         }
 
-        /* Image Layout Classes from DOCX */
+        /* Flex Layout for inline images */
+        .img-inline-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .img-inline-container.left {
+            flex-direction: row;
+        }
+
+        .img-inline-container.right {
+            flex-direction: row-reverse;
+        }
+
+        .img-inline-container img {
+            width: 35%;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .img-inline-container p {
+            margin: 0;
+        }
+
         .img-side-by-side {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -320,28 +345,6 @@
 
         .img-side-by-side img {
             margin: 0;
-        }
-
-        .img-small-left {
-            float: left;
-            width: 35%;
-            margin-right: 20px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-        }
-
-        .img-small-right {
-            float: right;
-            width: 35%;
-            margin-left: 20px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-        }
-
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
         }
 
         .modal-footer {
@@ -411,10 +414,11 @@
             .img-side-by-side {
                 grid-template-columns: 1fr;
             }
-            .img-small-left, .img-small-right {
-                float: none;
+            .img-inline-container {
+                flex-direction: column;
+            }
+            .img-inline-container img {
                 width: 100%;
-                margin: 20px 0;
             }
         }
     </style>
@@ -506,8 +510,8 @@
                     
                     <p>The old tobacco industry grew from the dirtiest roots possible and its fruits are still poisoned.</p>
                     
-                    <div class="clearfix">
-                        <img src="Assets/2-know-more/1.3-ns.jpg" alt="Need Smokes" class="img-small-left">
+                    <div class="img-inline-container left">
+                        <img src="Assets/2-know-more/1.3-ns.jpg" alt="Need Smokes">
                         <p>Smokers are still mainly seen by society as stigmatized people who have no self-control on its cravings, inconvenient to their surroundings, sometimes pitied as edgy and risky individuals that in reality, are very precisely manipulated by the industry, to start with fun smoking and once hooked, continue addicted on consuming one of the deadliest drugs in humankind history.</p>
                     </div>
                     
@@ -517,8 +521,8 @@
                     
                     <p>We aim to create a safe channel for these individuals to tell their stories, share their angst, experiences and feelings related to what is to live in or surrounded by a constant addiction battle. Strong representation, anonymity, free and secure space to share their deepest feelings bringing awareness to other people and breaking the prejudice by incentivizing a way out, is the main goal of this project. We are keen to understand, broadcast, support and, if possible, use these feelings as billboards to do justice to the industry's multiple imposed attacks on society.</p>
                     
-                    <div class="clearfix">
-                        <img src="Assets/2-know-more/1.4-rossini.jpeg" alt="Rossini Profile" class="img-small-right">
+                    <div class="img-inline-container right">
+                        <img src="Assets/2-know-more/1.4-rossini.jpeg" alt="Rossini Profile">
                         <p>After 28 years as a heavy smoker, there were moments where a cigarette felt like my only reliable friend, but in reality it was my worst enemy. Even in the happy moments, I always hid myself in my addiction, letting it dictate my choices. Alone, I've managed to quit many other drug addictions and nowadays, I'm on my third quitting attempt over the last 2 years. I feel the need to help other people to understand their situation, be in control and with the necessary clarity of how this addiction is not our fault or weakness, but a heavy engineering manipulation campaign by the greedy tobacco industry.</p>
                     </div>
                 `
@@ -550,8 +554,12 @@
                     
                     <p>When people think about abstraction as an art concept, the direct connection is with the famous paintings portrayed by masters such as Picasso, Miró, Kandinsky or even Calder's kinetic mobiles. There are only a few artists working exclusively with 3D abstract art and most of them are focused on digital creation for physical applications, as beautifully done lately by Jesse Kanda, Wieki Somers, Stephanie Lempert and others.</p>
                     
-                    <img src="Assets/2-know-more/3.2-kandinsky.jpg" alt="Kandinsky">
-                    <span class="caption">"To the unknown voice" • 1916 • Kandinsky watercolor to Nina Andreevskaya, after falling in love with the voice on the phone, who became his wife one year later.</span>
+                    <div class="img-inline-container left">
+                        <img src="Assets/2-know-more/3.2-kandinsky.jpg" alt="Kandinsky" style="width: 50%;">
+                        <div>
+                            <span class="caption" style="text-align: left; margin-top: 0;">"To the unknown voice" • 1916 • Kandinsky watercolor to Nina Andreevskaya, after falling in love with the voice on the phone, who became his wife one year later.</span>
+                        </div>
+                    </div>
                     
                     <p>The first visual concept of this project, is a derivative of a digital art assignment from when I was in university, that consisted in creating political portraits using multiple published pictures of these figures and assembling them as deformed likeness, in order to convey all the misleading that these politicians perpetuate. It started as a mix of photo collage with likeness abstraction (examples above). This concept stayed dormant for many years, until my self taught 3D modeling and animation studies developed. The passion for shapes and colors, combined with the possibility to turn them into portraits, allow me to describe a person's features, particularities and stories keeping the viewer intrigued by not knowing who is the interlocutor.</p>
                     
@@ -562,11 +570,10 @@
                     
                     <p>Working with 3D modeling softwares, provides tools that can automate the process at the cost of lack of control. Similar to the contemporary AI art experiments, the artists have creation resources at the expense of an unknown and many times, uncontrolled output. In my approach, I've used the software as a virtual studio space where I can create basic forms, manipulate, shatter these forms in multiple random shapes and assemble it back into still or animated portraits.</p>
                     
-                    <img src="Assets/2-know-more/3.5-smoker.jpeg" alt="Deconstructed Portrait" class="img-small-right">
-                    
-                    <p>At first glance, the main results of this creation process are still images to be printed in paper, however with the adventure of actual technologies, these artworks can be conveyed into animations, projected, 3D printed, mixed reality environments, extruded, etched and depending on the available resources, even holographically displayed. The ambition for the first showcase is more to create the space and representation of people's stories than promoting the art craft itself. The more resources and technologies that we can allocate for this exhibition, the more compelling the viewer might react.</p>
-                    
-                    <div style="clear: both;"></div>
+                    <div class="img-inline-container right">
+                        <img src="Assets/2-know-more/3.5-smoker.jpeg" alt="Deconstructed Portrait">
+                        <p>At first glance, the main results of this creation process are still images to be printed in paper, however with the adventure of actual technologies, these artworks can be conveyed into animations, projected, 3D printed, mixed reality environments, extruded, etched and depending on the available resources, even holographically displayed. The ambition for the first showcase is more to create the space and representation of people's stories than promoting the art craft itself. The more resources and technologies that we can allocate for this exhibition, the more compelling the viewer might react.</p>
+                    </div>
                     
                     <img src="Assets/2-know-more/3.6-oja.png" alt="Oja" style="width: 100%; max-width: 600px; margin: 20px auto;">
 
