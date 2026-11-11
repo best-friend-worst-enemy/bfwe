@@ -341,6 +341,7 @@
                 <label>Tell us a bit about yourself.</label>
                 <input type="text" name="firstName" id="input-firstName" placeholder="Name" required>
                 <input type="text" name="lastName" id="input-lastName" placeholder="Surname" required>
+                <input type="email" name="userEmail" id="input-email" placeholder="Email address" required>
                 <select name="gender" id="input-gender" required>
                     <option value="" disabled selected>Select your gender</option>
                     <option value="Female">Female</option>
@@ -461,7 +462,7 @@
             <!-- Step 8: Story (All) -->
             <div class="question-step" id="step-8">
                 <label>Now is time for you, to tell us a history of your life related with tobacco. Take your time and put it all out:</label>
-                <textarea name="q8_story" id="input-q8" rows="6" placeholder="Placeholder text to be changed later. Placeholder text to be changed later. Placeholder text to be changed later."></textarea>
+                <textarea name="q8_story" id="input-q8" rows="6" placeholder="Placeholder text to be changed later. Placeholder text to be changed later. Placeholder text to be changed later." required></textarea>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(8)">Back</button>
                     <button type="button" class="btn" onclick="next(8)">Next</button>
@@ -471,7 +472,7 @@
             <!-- Step 9: Feelings (All) -->
             <div class="question-step" id="step-9">
                 <label>Before we finish, please share with us your feelings about smoking and quitting.</label>
-                <textarea name="q9_feelings" id="input-q9" rows="4"></textarea>
+                <textarea name="q9_feelings" id="input-q9" rows="4" required></textarea>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(9)">Back</button>
                     <button type="button" class="btn" id="submitBtn" onclick="submitForm()">Submit</button>
@@ -578,7 +579,7 @@
 
         function next(currentStep) {
             const currentDiv = document.getElementById('step-' + currentStep);
-            const inputs = currentDiv.querySelectorAll('input[required], select[required]');
+            const inputs = currentDiv.querySelectorAll('input[required], select[required], textarea[required]');
             
             for (const input of inputs) {
                 if (!input.checkValidity()) {
