@@ -321,61 +321,103 @@
     <div class="survey-container">
         <form id="quizForm" onsubmit="event.preventDefault();">
             
-            <div class="question-step active" id="step-1">
-                <label>What is your email address?</label>
-                <input type="email" name="userEmail" id="input-email" required>
+            <!-- Step 0: Disclaimer & Permission -->
+            <div class="question-step active" id="step-0">
+                <label>Welcome to the BFWE Survey</label>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">
+                    Placeholder legal disclaimer text. Placeholder explanatory text. We request your permission to use your precise location for this survey. 
+                </p>
+                <div class="location-options">
+                    <button type="button" class="btn" onclick="requestLocationPermission()" id="geoBtn">Allow location</button>
+                    <div id="geoStatus" style="font-size: 0.85rem; color: var(--brand-gold); margin-bottom: 10px;"></div>
+                </div>
+                <div class="btn-group" style="margin-top: 30px;">
+                    <button type="button" class="btn" onclick="next(0)">Start</button>
+                </div>
+            </div>
+
+            <!-- Step 1: Personal Info -->
+            <div class="question-step" id="step-1">
+                <label>Tell us a bit about yourself.</label>
+                <input type="text" name="firstName" id="input-firstName" placeholder="Name" required>
+                <input type="text" name="lastName" id="input-lastName" placeholder="Surname" required>
+                <select name="gender" id="input-gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary">Non-binary</option>
+                </select>
+                <select name="age" id="input-age" required>
+                    <option value="" disabled selected>Select your age group</option>
+                    <option value="under 16">under 16</option>
+                    <option value="17-25 years">17-25 years</option>
+                    <option value="26-35 years">26-35 years</option>
+                    <option value="36-45 years">36-45 years</option>
+                    <option value="46-55 years">46-55 years</option>
+                    <option value="56-65 or more">56-65 or more</option>
+                </select>
                 <div class="btn-group">
                     <button type="button" class="btn" onclick="next(1)">Next</button>
                 </div>
             </div>
 
+            <!-- Step 2: Relationship -->
             <div class="question-step" id="step-2">
-                <label>Tell us a bit about yourself.</label>
-                <input type="text" name="firstName" id="input-firstName" placeholder="First Name" required>
-                <input type="text" name="lastName" id="input-lastName" placeholder="Surname" required>
-                <select name="age" id="input-age" required>
-                    <option value="" disabled selected>Select your age group</option>
-                    <option value="under 16">under 16</option>
-                    <option value="17 • 25 years">17 • 25 years</option>
-                    <option value="26 • 34 years">26 • 34 years</option>
-                    <option value="35 • 43 years">35 • 43 years</option>
-                    <option value="44 • 52 years">44 • 52 years</option>
-                    <option value="53 • over 65 years">53 • over 65 years</option>
+                <label>What is your relationship with tobacco products?</label>
+                <select name="relationship" id="input-relationship" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="Smoker">Smoker</option>
+                    <option value="Non-Smoker">Non-Smoker</option>
+                    <option value="Ex-Smoker">Ex-Smoker</option>
                 </select>
                 <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prev(2)">Back</button>
                     <button type="button" class="btn" onclick="next(2)">Next</button>
                 </div>
             </div>
 
+            <!-- Step 3: Products (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-3">
-                <label>Question 1: How did you hear about us?</label>
-                <input type="text" name="q1" id="input-q1" required>
+                <label>Which of these products you have experimented?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Industrial Cigarettes"> Industrial Cigarettes</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Rolled Tobacco"> Rolled Tobacco</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Vapes"> Vapes</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Heated Tobacco Sticks"> Heated Tobacco Sticks</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Nicotine Pouches"> Nicotine Pouches</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Other"> Other</label>
+                </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(3)">Back</button>
                     <button type="button" class="btn" onclick="next(3)">Next</button>
                 </div>
             </div>
 
+            <!-- Step 4: Age Started (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-4">
-                <label>How strong is your craving to smoke when you wake up?</label>
-                <input type="range" name="q2_craving" id="input-q2" min="0" max="10" value="5">
-                <div class="slider-labels">
-                    <span>None</span>
-                    <span>Very strong</span>
-                </div>
+                <label>At what age did you start?</label>
+                <select name="q4_age_started" id="input-q4" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="under 16">under 16</option>
+                    <option value="17-25 years">17-25 years</option>
+                    <option value="26-35 years">26-35 years</option>
+                    <option value="36-45 years">36-45 years</option>
+                    <option value="46-55 years">46-55 years</option>
+                    <option value="56-65 or more">56-65 or more</option>
+                </select>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(4)">Back</button>
                     <button type="button" class="btn" onclick="next(4)">Next</button>
                 </div>
             </div>
 
+            <!-- Step 5: Craving (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-5">
-                <label>Which of these are smokers in your family?</label>
-                <div class="checkbox-group">
-                    <label class="checkbox-label"><input type="checkbox" name="q3_family" value="Mother" class="family-cb"> Mother</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_family" value="Father" class="family-cb"> Father</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_family" value="Other relatives" class="family-cb"> Other relatives</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_family" value="None" id="cb-none"> None</label>
+                <label>How strong is your craving to smoke when you wake up?</label>
+                <input type="range" name="q5_craving" id="input-q5" min="0" max="10" value="5">
+                <div class="slider-labels">
+                    <span>None</span>
+                    <span>Very strong</span>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(5)">Back</button>
@@ -383,63 +425,55 @@
                 </div>
             </div>
 
+            <!-- Step 6: Daily Quantity (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-6">
-                <label>Where are you from?</label>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">
-                    To get a better understanding of our participants, we need to know where they come from. Please allow your location or select your country.
-                </p>
-                
-                <div class="location-options">
-                    <button type="button" class="btn" onclick="requestLocationPermission()" id="geoBtn">Allow location</button>
-                    <div id="geoStatus" style="font-size: 0.85rem; color: var(--brand-gold); margin-bottom: 10px;"></div>
-                    
-                    <select id="input-country">
-                        <option value="" disabled selected>Select your country</option>
-                        <option value="Afghanistan">Afghanistan</option>
-                        <option value="Albania">Albania</option>
-                        <option value="Algeria">Algeria</option>
-                        <option value="Argentina">Argentina</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Austria">Austria</option>
-                        <option value="Belgium">Belgium</option>
-                        <option value="Brazil">Brazil</option>
-                        <option value="Canada">Canada</option>
-                        <option value="China">China</option>
-                        <option value="Denmark">Denmark</option>
-                        <option value="Egypt">Egypt</option>
-                        <option value="Finland">Finland</option>
-                        <option value="France">France</option>
-                        <option value="Germany">Germany</option>
-                        <option value="Greece">Greece</option>
-                        <option value="India">India</option>
-                        <option value="Ireland">Ireland</option>
-                        <option value="Italy">Italy</option>
-                        <option value="Japan">Japan</option>
-                        <option value="Mexico">Mexico</option>
-                        <option value="Netherlands">Netherlands</option>
-                        <option value="New Zealand">New Zealand</option>
-                        <option value="Norway">Norway</option>
-                        <option value="Portugal">Portugal</option>
-                        <option value="South Africa">South Africa</option>
-                        <option value="Spain">Spain</option>
-                        <option value="Sweden">Sweden</option>
-                        <option value="Switzerland">Switzerland</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="United States">United States</option>
-                    </select>
-                </div>
-
-                <div class="btn-group" style="margin-top: 30px;">
+                <label>How many do you have regularly per day?</label>
+                <select name="q6_daily" id="input-q6" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1-10">1-10</option>
+                    <option value="11-20">11-20</option>
+                    <option value="21-30">21-30</option>
+                    <option value="31 or more">31 or more</option>
+                </select>
+                <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(6)">Back</button>
                     <button type="button" class="btn" onclick="next(6)">Next</button>
                 </div>
             </div>
 
+            <!-- Step 7: Circle (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-7">
-                <label>Any additional comments?</label>
-                <textarea name="q4" id="input-q4" rows="3"></textarea>
+                <label>Which of these people are smokers in your circle?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Mother" class="circle-cb"> Mother</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Father" class="circle-cb"> Father</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Siblings" class="circle-cb"> Siblings</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Partner" class="circle-cb"> Partner</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Friends" class="circle-cb"> Friends</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Nobody" id="cb-nobody"> Nobody</label>
+                </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(7)">Back</button>
+                    <button type="button" class="btn" onclick="next(7)">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 8: Story (All) -->
+            <div class="question-step" id="step-8">
+                <label>Now is time for you, to tell us a history of your life related with tobacco. Take your time and put it all out:</label>
+                <textarea name="q8_story" id="input-q8" rows="6" placeholder="Placeholder text to be changed later. Placeholder text to be changed later. Placeholder text to be changed later."></textarea>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prev(8)">Back</button>
+                    <button type="button" class="btn" onclick="next(8)">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 9: Feelings (All) -->
+            <div class="question-step" id="step-9">
+                <label>Before we finish, please share with us your feelings about smoking and quitting.</label>
+                <textarea name="q9_feelings" id="input-q9" rows="4"></textarea>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prev(9)">Back</button>
                     <button type="button" class="btn" id="submitBtn" onclick="submitForm()">Submit</button>
                 </div>
             </div>
@@ -465,6 +499,7 @@
         let startTime = Date.now();
         let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
         let preciseLocationGranted = false;
+        let path = "standard";
 
         fetch('https://ipwho.is/')
             .then(res => res.json())
@@ -526,7 +561,7 @@
                     (error) => {
                         console.warn("Location denied or failed:", error);
                         ipData.area = "Location permission denied";
-                        geoStatus.textContent = "Permission denied. Please select your country from the list.";
+                        geoStatus.textContent = "Permission denied. You can still continue.";
                         geoStatus.style.color = "#c55";
                         geoBtn.disabled = false;
                         geoBtn.textContent = "Allow location";
@@ -552,23 +587,17 @@
                 }
             }
 
-            if (currentStep === 6) {
-                const selectedCountry = document.getElementById('input-country').value;
-                
-                if (!preciseLocationGranted && !selectedCountry) {
-                    alert("Please either select your country from the list or allow precise location.");
+            // Path logic for Non-Smoker
+            if (currentStep === 2) {
+                const relationship = document.getElementById('input-relationship').value;
+                if (relationship === 'Non-Smoker') {
+                    path = "non-smoker";
+                    currentDiv.classList.remove('active');
+                    document.getElementById('step-8').classList.add('active');
                     return;
+                } else {
+                    path = "standard";
                 }
-
-                if (!preciseLocationGranted && selectedCountry) {
-                    ipData.area = selectedCountry;
-                    ipData.country = selectedCountry; 
-                }
-            }
-
-            if (currentStep === 1) {
-                document.getElementById('input-email').readOnly = true;
-                document.getElementById('input-email').style.opacity = '0.5';
             }
 
             currentDiv.classList.remove('active');
@@ -581,18 +610,18 @@
             document.getElementById('step-' + (currentStep - 1)).classList.add('active');
         }
 
-        const checkboxes = document.querySelectorAll('.family-cb');
-        const noneCb = document.getElementById('cb-none');
+        const circleCbs = document.querySelectorAll('.circle-cb');
+        const nobodyCb = document.getElementById('cb-nobody');
 
-        checkboxes.forEach(cb => {
+        circleCbs.forEach(cb => {
             cb.addEventListener('change', () => {
-                if (cb.checked) noneCb.checked = false;
+                if (cb.checked) nobodyCb.checked = false;
             });
         });
 
-        noneCb.addEventListener('change', () => {
-            if (noneCb.checked) {
-                checkboxes.forEach(cb => cb.checked = false);
+        nobodyCb.addEventListener('change', () => {
+            if (nobodyCb.checked) {
+                circleCbs.forEach(cb => cb.checked = false);
             }
         });
 
@@ -602,9 +631,9 @@
             const endTime = Date.now();
             const sessionTimeSeconds = Math.round((endTime - startTime) / 1000);
             
-            const family = [];
-            document.querySelectorAll('.family-cb:checked').forEach(cb => family.push(cb.value));
-            if (noneCb.checked) family.push("None");
+            const circle = [];
+            document.querySelectorAll('.circle-cb:checked').forEach(cb => circle.push(cb.value));
+            if (nobodyCb.checked) circle.push("Nobody");
 
             const payload = {
                 type: "survey",
@@ -613,12 +642,17 @@
                 userEmail: formData.get('userEmail'),
                 firstName: formData.get('firstName'),
                 lastName: formData.get('lastName'),
+                gender: formData.get('gender'),
                 age: formData.get('age'),
+                relationship: formData.get('relationship'),
                 answers: {
-                    q1: formData.get('q1'),
-                    q2: formData.get('q2_craving'),
-                    q3: family.join(', '),
-                    q4: formData.get('q4')
+                    q3: formData.getAll('q3_products').join(', '),
+                    q4: formData.get('q4_age_started'),
+                    q5: formData.get('q5_craving'),
+                    q6: formData.get('q6_daily'),
+                    q7: circle.join(', '),
+                    q8: formData.get('q8_story'),
+                    q9: formData.get('q9_feelings')
                 }
             };
 
@@ -638,7 +672,7 @@
                 body: JSON.stringify(payload)
             })
             .then(() => {
-                statusDiv.textContent = "Thank you for sharing!\nAn email has been sent to\n" + payload.userEmail;
+                statusDiv.textContent = "Thank you for sharing!\nAn email has been sent to\n" + (payload.userEmail || "you");
                 statusDiv.style.color = "#d99c45";
                 form.style.display = 'none';
                 document.getElementById('home-return').style.display = 'block';
