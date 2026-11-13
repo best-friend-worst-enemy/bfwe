@@ -1,4 +1,3 @@
-<!-- survey.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -328,13 +327,12 @@
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">
                     Placeholder legal disclaimer text. Placeholder explanatory text. We request your permission to use your precise location for this survey. 
                 </p>
-                <div class="location-options">
-                    <button type="button" class="btn" onclick="requestLocationPermission()" id="geoBtn">Allow location</button>
-                    <div id="geoStatus" style="font-size: 0.85rem; color: var(--brand-gold); margin-bottom: 10px;"></div>
-                </div>
+                
                 <div class="btn-group" style="margin-top: 30px;">
-                    <button type="button" class="btn" onclick="next(0)">Start</button>
+                    <button type="button" class="btn" onclick="startSurvey()">Start</button>
+                    <a href="index.html" class="btn btn-back">Return</a>
                 </div>
+                <div id="geoStatus" style="font-size: 0.85rem; color: var(--brand-gold); margin-top: 15px;"></div>
             </div>
 
             <!-- Step 1: Personal Info -->
@@ -523,58 +521,56 @@
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyS90ofebzEjhWZY5z1puCBwAuySngjvupETV2KVOZvorkiVfuVN1JLT-erYCk8pqCvJg/exec";
 
-        async function requestLocationPermission() {
-            const geoBtn = document.getElementById('geoBtn');
+        function startSurvey() {
             const geoStatus = document.getElementById('geoStatus');
             
-            geoBtn.disabled = true;
-            geoBtn.textContent = "Requesting...";
-            
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        
-                        ipData.area = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
-                        preciseLocationGranted = true;
-                        
-                        geoStatus.textContent = "Precise location recorded. Finding your country...";
-                        geoStatus.style.color = "#f28d18";
-                        geoBtn.style.display = 'none';
-
-                        try {
-                            const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
-                            const geoData = await geoRes.json();
-                            if (geoData.countryName) {
-                                ipData.country = geoData.countryName;
-                                if (geoData.city || geoData.locality) {
-                                    ipData.city = geoData.city || geoData.locality;
+            if (!preciseLocationGranted) {
+                geoStatus.textContent = "Requesting location permission...";
+                geoStatus.style.color = "#f28d18";
+                
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        async (position) => {
+                            const lat = position.coords.latitude;
+                            const lon = position.coords.longitude;
+                            
+                            ipData.area = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+                            preciseLocationGranted = true;
+                            
+                            geoStatus.textContent = "Location recorded. Starting...";
+                            
+                            try {
+                                const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+                                const geoData = await geoRes.json();
+                                if (geoData.countryName) {
+                                    ipData.country = geoData.countryName;
+                                    if (geoData.city || geoData.locality) {
+                                        ipData.city = geoData.city || geoData.locality;
+                                    }
                                 }
-                                geoStatus.textContent = `Location recorded: ${ipData.country}`;
-                            } else {
-                                geoStatus.textContent = "Precise location recorded.";
+                            } catch (e) {
+                                console.log("Reverse geocode failed", e);
                             }
-                        } catch (e) {
-                            console.log("Reverse geocode failed", e);
-                            geoStatus.textContent = "Precise location recorded. (Country lookup failed)";
-                        }
-                    },
-                    (error) => {
-                        console.warn("Location denied or failed:", error);
-                        ipData.area = "Location permission denied";
-                        geoStatus.textContent = "Permission denied. You can still continue.";
-                        geoStatus.style.color = "#c55";
-                        geoBtn.disabled = false;
-                        geoBtn.textContent = "Allow location";
-                    },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-                );
+                            
+                            // Move to next step
+                            document.getElementById('step-0').classList.remove('active');
+                            document.getElementById('step-1').classList.add('active');
+                        },
+                        (error) => {
+                            console.warn("Location denied or failed:", error);
+                            geoStatus.textContent = "Permission denied. You must allow location to start the survey.";
+                            geoStatus.style.color = "#c55";
+                        },
+                        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                    );
+                } else {
+                    geoStatus.textContent = "Geolocation not supported by browser. Cannot start.";
+                    geoStatus.style.color = "#c55";
+                }
             } else {
-                geoStatus.textContent = "Geolocation not supported by browser.";
-                geoStatus.style.color = "#c55";
-                geoBtn.disabled = false;
-                geoBtn.textContent = "Allow location";
+                // Already granted
+                document.getElementById('step-0').classList.remove('active');
+                document.getElementById('step-1').classList.add('active');
             }
         }
 
