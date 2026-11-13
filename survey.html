@@ -1,3 +1,4 @@
+<!-- survey.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Pinyon+Script&family=Sono:wght,MONO@200..800,1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Pinyon+Script&family=Sono:wght@500&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -114,7 +115,7 @@
             color: var(--text-muted);
             font-family: var(--font-body);
             font-size: clamp(0.8rem, 1vw, 0.9rem);
-            font-weight: 300;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
 
@@ -158,7 +159,7 @@
             margin-bottom: 20px;
             display: block;
             color: var(--text-light);
-            font-weight: 400;
+            font-weight: 500;
         }
 
         input[type="email"], input[type="text"], textarea, select {
@@ -552,7 +553,6 @@
                                 console.log("Reverse geocode failed", e);
                             }
                             
-                            // Move to next step
                             document.getElementById('step-0').classList.remove('active');
                             document.getElementById('step-1').classList.add('active');
                         },
@@ -568,7 +568,6 @@
                     geoStatus.style.color = "#c55";
                 }
             } else {
-                // Already granted
                 document.getElementById('step-0').classList.remove('active');
                 document.getElementById('step-1').classList.add('active');
             }
@@ -585,7 +584,6 @@
                 }
             }
 
-            // Path logic for Non-Smoker
             if (currentStep === 2) {
                 const relationship = document.getElementById('input-relationship').value;
                 if (relationship === 'Non-Smoker') {
