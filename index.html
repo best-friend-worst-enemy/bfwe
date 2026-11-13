@@ -197,7 +197,7 @@
 </head>
 <body>
 
-    <video id="bg-video" muted playsinline>
+    <video id="bg-video" muted playsinline loop>
         <source src="Assets/1-index/index-bg.mp4" type="video/mp4">
     </video>
 
@@ -234,12 +234,11 @@
             
             video.playbackRate = 0.5;
             
-            // Use the 'ended' event to trigger when the video finishes playing once
+            // Listen for the first time the video finishes playing
             video.addEventListener('ended', function() {
                 hero.classList.add('visible');
-            });
+            }, { once: true });
 
-            // Start the video
             video.play();
         });
     </script>
