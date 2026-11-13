@@ -52,17 +52,6 @@
             filter: brightness(0.7) saturate(0.8); 
         }
 
-        .video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at center, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.8) 100%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
         .hero {
             height: 100vh;
             display: flex;
@@ -73,6 +62,14 @@
             padding: 0 5%;
             position: relative;
             z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+        }
+
+        .hero.visible {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .logo-container {
@@ -200,13 +197,11 @@
 </head>
 <body>
 
-    <video autoplay loop muted playsinline id="bg-video">
+    <video id="bg-video" muted playsinline>
         <source src="Assets/1-index/index-bg.mp4" type="video/mp4">
     </video>
-    
-    <div class="video-overlay"></div>
 
-    <header class="hero">
+    <header class="hero" id="hero">
         
         <a href="index.html" class="logo-container">
             <img src="Assets/1-index/logo-white.gif" alt="BFWE Logo" class="brand-mark">
@@ -235,11 +230,17 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
-            video.playbackRate = 0.5; 
+            var hero = document.getElementById('hero');
             
-            video.addEventListener('play', function() {
-                video.playbackRate = 0.5;
+            video.playbackRate = 0.5;
+            
+            // Use the 'ended' event to trigger when the video finishes playing once
+            video.addEventListener('ended', function() {
+                hero.classList.add('visible');
             });
+
+            // Start the video
+            video.play();
         });
     </script>
 
