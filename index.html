@@ -231,13 +231,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
             var hero = document.getElementById('hero');
+            var hasRevealed = false;
             
             video.playbackRate = 0.5;
             
-            // Listen for the first time the video finishes playing
-            video.addEventListener('ended', function() {
-                hero.classList.add('visible');
-            }, { once: true });
+            // Use timeupdate to detect the end of the first playthrough since 'ended' doesn't fire on loop
+            video.addEventListener('timeupdate', function() {
+                if (!hasRevealed && video.duration > 0 && video.currentTime >= video.duration - 0.2) {
+                    hero.classList.add('visible');
+                    hasRevealed = true;
+                }
+            });
 
             video.play();
         });
