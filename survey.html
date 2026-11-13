@@ -1,3 +1,4 @@
+<!-- survey.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 
     <style>
         :root {
-            --brand-gold: #d99c45;
+            --brand-gold: #f28d18;
             --bg-dark: #050505;
             --text-light: #ffffff;
             --text-muted: #bbbbbb;
@@ -263,7 +264,7 @@
         .btn:hover {
             background-color: transparent;
             color: var(--brand-gold);
-            box-shadow: 0 0 15px rgba(217, 156, 69, 0.2);
+            box-shadow: 0 0 15px rgba(242, 141, 24, 0.2);
         }
 
         .btn-back {
@@ -539,7 +540,7 @@
                         preciseLocationGranted = true;
                         
                         geoStatus.textContent = "Precise location recorded. Finding your country...";
-                        geoStatus.style.color = "#d99c45";
+                        geoStatus.style.color = "#f28d18";
                         geoBtn.style.display = 'none';
 
                         try {
@@ -674,7 +675,7 @@
             })
             .then(() => {
                 statusDiv.textContent = "Thank you for sharing!\nAn email has been sent to\n" + (payload.userEmail || "you");
-                statusDiv.style.color = "#d99c45";
+                statusDiv.style.color = "#f28d18";
                 form.style.display = 'none';
                 document.getElementById('home-return').style.display = 'block';
             })

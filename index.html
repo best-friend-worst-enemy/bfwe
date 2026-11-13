@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 
     <style>
         :root {
-            --brand-gold: #d99c45;
+            --brand-gold: #f28d18;
             --brand-light: #fce8cc;
             --bg-dark: #050505;
             --text-light: #ffffff;
@@ -137,7 +138,7 @@
         .btn-primary:hover {
             background-color: transparent;
             color: var(--brand-gold);
-            box-shadow: 0 0 20px rgba(217, 156, 69, 0.3);
+            box-shadow: 0 0 20px rgba(242, 141, 24, 0.3);
         }
 
         .btn-secondary {
@@ -234,12 +235,9 @@
             
             video.playbackRate = 0.5;
             
-            // Check if this is the first time in this session
             if (sessionStorage.getItem('bfwe_intro_shown')) {
-                // Not the first time: show immediately
                 hero.classList.add('visible');
             } else {
-                // First time: wait for the video to almost finish
                 var hasRevealed = false;
                 video.addEventListener('timeupdate', function() {
                     if (!hasRevealed && video.duration > 0 && video.currentTime >= video.duration - 0.2) {
