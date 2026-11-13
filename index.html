@@ -231,17 +231,24 @@
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
             var hero = document.getElementById('hero');
-            var hasRevealed = false;
             
             video.playbackRate = 0.5;
             
-            // Use timeupdate to detect the end of the first playthrough since 'ended' doesn't fire on loop
-            video.addEventListener('timeupdate', function() {
-                if (!hasRevealed && video.duration > 0 && video.currentTime >= video.duration - 0.2) {
-                    hero.classList.add('visible');
-                    hasRevealed = true;
-                }
-            });
+            // Check if this is the first time in this session
+            if (sessionStorage.getItem('bfwe_intro_shown')) {
+                // Not the first time: show immediately
+                hero.classList.add('visible');
+            } else {
+                // First time: wait for the video to almost finish
+                var hasRevealed = false;
+                video.addEventListener('timeupdate', function() {
+                    if (!hasRevealed && video.duration > 0 && video.currentTime >= video.duration - 0.2) {
+                        hero.classList.add('visible');
+                        sessionStorage.setItem('bfwe_intro_shown', 'true');
+                        hasRevealed = true;
+                    }
+                });
+            }
 
             video.play();
         });
