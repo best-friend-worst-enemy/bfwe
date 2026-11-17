@@ -97,14 +97,25 @@
             max-width: 800px;
         }
 
-        .hero p {
+        .hero .dela-text {
+            font-family: var(--font-head);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .hero .sono-text {
             font-family: var(--font-body);
             font-size: clamp(0.9rem, 1.2vw, 1rem);
             font-weight: 500;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
             color: var(--text-muted);
             line-height: 1.8;
             margin-bottom: 0;
+            white-space: pre-line;
         }
 
         .button-group {
@@ -191,7 +202,8 @@
         }
 
         @media (max-width: 768px) {
-            .hero p { font-size: 0.8rem; }
+            .hero .dela-text { font-size: 0.9rem; }
+            .hero .sono-text { font-size: 0.8rem; }
             .btn { padding: 14px 24px; font-size: 0.75rem; }
         }
     </style>
@@ -209,7 +221,10 @@
         </a>
         
         <div class="text-content">
-            <p>The tobacco industry grew from the dirtiest roots: appropriation, colonization, looting, slavery, exploitation, monopoly, manipulation and continuous lies.</p>
+            <p class="dela-text">The tobacco industry grew from the dirtiest roots: appropriation, colonization, looting, slavery, exploitation, monopoly, manipulation and continuous lies.</p>
+            <p class="sono-text">The idea of this project is to have a safe space for people to tell their stories, experiences and feelings about tobacco addiction and its harms to society. We want to provide an anonymous way to tell these stories while giving anonymity, so any person can share their experiences. 
+
+This will become a series of abstract portraits in a project that brings awareness of the tobacco industry strategies. Help us to raise awareness about this evil business by sharing your story.</p>
         </div>
         
         <div class="button-group">
