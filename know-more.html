@@ -312,6 +312,40 @@
             text-decoration: underline;
         }
 
+        /* Fact Cards */
+        .fact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .fact-card {
+            background-color: #0d0d0d;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fact-card .stat {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: var(--brand-gold);
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .fact-card .desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
         /* Flex Layout for inline images */
         .img-inline-container {
             display: flex;
@@ -425,6 +459,9 @@
             .modal-title {
                 font-size: 1.2rem;
             }
+            .fact-cards {
+                grid-template-columns: 1fr;
+            }
             .img-side-by-side {
                 grid-template-columns: 1fr;
             }
@@ -518,7 +555,20 @@
                     
                     <p>After almost 150 years of corruption, this industry kills more than 7 million people per year, mysteriously selling more even after being restricted by public health control measures. In a strange way, tobacco consumption keeps rising while public health approaches limit industry actions, the industry finds new ways to entice.</p>
                     
-                    <img src="Assets/2-know-more/1.1-tkf.png" alt="Tobacco Free Kids">
+                    <div class="fact-cards">
+                        <div class="fact-card">
+                            <span class="stat">7 MILLION+</span>
+                            <span class="desc">People who die each year from tobacco use</span>
+                        </div>
+                        <div class="fact-card">
+                            <span class="stat">$1.85 TRILLION</span>
+                            <span class="desc">Total global economic damage caused by smoking each year</span>
+                        </div>
+                        <div class="fact-card">
+                            <span class="stat">79%</span>
+                            <span class="desc">Percentage of the world's smokers in low- and middle-income countries</span>
+                        </div>
+                    </div>
                     
                     <p>After experiencing falls in revenues and health related controls, the tobacco industry has rediscovered itself in today's technological boom bypassing the law selling “devices” and selling new nicotine based products. Heated tobacco burners and sticks, disposable vapes and their pods, and tobacco/nicotine pouches, are the response for a generation that is rejecting smoking as a habit, but is now enthralled by a new brainwashing campaign.</p>
                     
