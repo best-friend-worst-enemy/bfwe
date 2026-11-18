@@ -165,9 +165,9 @@
         input[type="email"], input[type="text"], textarea, select {
             width: 100%;
             padding: 16px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--text-light);
+            background-color: #000000;
+            border: 1px solid var(--brand-gold);
+            color: var(--brand-gold);
             border-radius: 8px;
             font-family: var(--font-body);
             font-size: 1rem;
@@ -182,8 +182,14 @@
             -webkit-appearance: none;
         }
 
+        select option {
+            background-color: #000000;
+            color: var(--brand-gold);
+        }
+
         input:focus, textarea:focus, select:focus {
             border-color: var(--brand-gold);
+            box-shadow: 0 0 8px rgba(242, 141, 24, 0.3);
         }
 
         input[type="range"] {
@@ -238,6 +244,16 @@
             accent-color: var(--brand-gold);
         }
 
+        .other-input-container {
+            margin-top: -10px;
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .other-input-container.active {
+            display: block;
+        }
+
         .btn-group {
             display: flex;
             gap: 15px;
@@ -283,11 +299,15 @@
         #status {
             margin-top: 20px;
             font-family: var(--font-body);
-            color: var(--brand-gold);
+            color: var(--text-light);
             font-weight: 500;
             text-align: center;
             white-space: pre-line;
             line-height: 1.6;
+        }
+
+        #status .accent-email {
+            color: var(--brand-gold);
         }
 
         .home-return-btn {
@@ -361,7 +381,7 @@
             </div>
 
             <div class="question-step" id="step-2">
-                <label>What is your relationship with tobacco products?</label>
+                <label>What is your relationship with tobacco/nicotine products?</label>
                 <select name="relationship" id="input-relationship" required>
                     <option value="" disabled selected>Select an option</option>
                     <option value="Smoker">Smoker</option>
@@ -377,12 +397,15 @@
             <div class="question-step" id="step-3">
                 <label>Which of these products you have experimented?</label>
                 <div class="checkbox-group">
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Industrial Cigarettes"> Industrial Cigarettes</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Regular Cigarettes"> Regular Cigarettes</label>
                     <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Rolled Tobacco"> Rolled Tobacco</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Vapes"> Vapes</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Vapes (e-cigarettes)"> Vapes (e-cigarettes)</label>
                     <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Heated Tobacco Sticks"> Heated Tobacco Sticks</label>
                     <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Nicotine Pouches"> Nicotine Pouches</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Other"> Other</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Other" id="cb-other"> Other</label>
+                </div>
+                <div class="other-input-container" id="other-input-container">
+                    <input type="text" name="q3_other_text" id="input-q3-other" placeholder="Please specify">
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(3)">Back</button>
@@ -440,6 +463,7 @@
                 <div class="checkbox-group">
                     <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Mother" class="circle-cb"> Mother</label>
                     <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Father" class="circle-cb"> Father</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Daughter/Son" class="circle-cb"> Daughter/Son</label>
                     <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Siblings" class="circle-cb"> Siblings</label>
                     <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Partner" class="circle-cb"> Partner</label>
                     <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Friends" class="circle-cb"> Friends</label>
@@ -452,8 +476,8 @@
             </div>
 
             <div class="question-step" id="step-8">
-                <label>Now is time for you, to tell us a history of your life related with tobacco. Take your time and put it all out:</label>
-                <textarea name="q8_story" id="input-q8" rows="6" placeholder="Placeholder text to be changed later. Placeholder text to be changed later. Placeholder text to be changed later." required></textarea>
+                <div style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6;">Now is time for you, to tell us a history of your life related with tobacco. We encourage you to take your time, try to be broad, express your feelings and share your story, knowing that your contribution will remain anonymous.</div>
+                <textarea name="q8_story" id="input-q8" rows="8" required></textarea>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(8)">Back</button>
                     <button type="button" class="btn" onclick="next(8)">Next</button>
@@ -461,7 +485,7 @@
             </div>
 
             <div class="question-step" id="step-9">
-                <label>Before we finish, please share with us your feelings about smoking and quitting.</label>
+                <label>Before we finish, please share with us your feelings about your smoking habit and plans for quitting.</label>
                 <textarea name="q9_feelings" id="input-q9" rows="4" required></textarea>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(9)">Back</button>
@@ -611,6 +635,21 @@
             }
         });
 
+        const cbOther = document.getElementById('cb-other');
+        const otherInputContainer = document.getElementById('other-input-container');
+        const inputQ3Other = document.getElementById('input-q3-other');
+
+        cbOther.addEventListener('change', () => {
+            if (cbOther.checked) {
+                otherInputContainer.classList.add('active');
+                inputQ3Other.required = true;
+            } else {
+                otherInputContainer.classList.remove('active');
+                inputQ3Other.required = false;
+                inputQ3Other.value = '';
+            }
+        });
+
         function submitForm() {
             const form = document.getElementById('quizForm');
             const formData = new FormData(form);
@@ -620,6 +659,14 @@
             const circle = [];
             document.querySelectorAll('.circle-cb:checked').forEach(cb => circle.push(cb.value));
             if (nobodyCb.checked) circle.push("Nobody");
+
+            let q3Products = formData.getAll('q3_products');
+            if (formData.get('q3_other_text')) {
+                const otherIndex = q3Products.indexOf('Other');
+                if (otherIndex > -1) {
+                    q3Products[otherIndex] = 'Other: ' + formData.get('q3_other_text');
+                }
+            }
 
             const payload = {
                 type: "survey",
@@ -632,7 +679,7 @@
                 age: formData.get('age'),
                 relationship: formData.get('relationship'),
                 answers: {
-                    q3: formData.getAll('q3_products').join(', '),
+                    q3: q3Products.join(', '),
                     q4: formData.get('q4_age_started'),
                     q5: formData.get('q5_craving'),
                     q6: formData.get('q6_daily'),
@@ -658,8 +705,8 @@
                 body: JSON.stringify(payload)
             })
             .then(() => {
-                statusDiv.textContent = "Thank you for sharing!\nAn email has been sent to\n" + (payload.userEmail || "you");
-                statusDiv.style.color = "#f28d18";
+                statusDiv.innerHTML = "Thank you for sharing!\nAn email has been sent to <span class='accent-email'>" + (payload.userEmail || "you") + "</span>";
+                statusDiv.style.color = "#ffffff";
                 form.style.display = 'none';
                 document.getElementById('home-return').style.display = 'block';
             })
