@@ -322,7 +322,6 @@
     <div class="survey-container">
         <form id="quizForm" onsubmit="event.preventDefault();">
             
-            <!-- Step 0: Disclaimer & Permission -->
             <div class="question-step active" id="step-0">
                 <label>Welcome to the BFWE Survey</label>
                 <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">
@@ -338,7 +337,6 @@
                 <div id="geoStatus" style="font-size: 0.85rem; color: var(--brand-gold); margin-top: 15px;"></div>
             </div>
 
-            <!-- Step 1: Personal Info -->
             <div class="question-step" id="step-1">
                 <label>Tell us a bit about yourself.</label>
                 <input type="text" name="firstName" id="input-firstName" placeholder="Name" required>
@@ -364,7 +362,6 @@
                 </div>
             </div>
 
-            <!-- Step 2: Relationship -->
             <div class="question-step" id="step-2">
                 <label>What is your relationship with tobacco products?</label>
                 <select name="relationship" id="input-relationship" required>
@@ -379,7 +376,6 @@
                 </div>
             </div>
 
-            <!-- Step 3: Products (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-3">
                 <label>Which of these products you have experimented?</label>
                 <div class="checkbox-group">
@@ -396,7 +392,6 @@
                 </div>
             </div>
 
-            <!-- Step 4: Age Started (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-4">
                 <label>At what age did you start?</label>
                 <select name="q4_age_started" id="input-q4" required>
@@ -414,7 +409,6 @@
                 </div>
             </div>
 
-            <!-- Step 5: Craving (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-5">
                 <label>How strong is your craving to smoke when you wake up?</label>
                 <input type="range" name="q5_craving" id="input-q5" min="0" max="10" value="5">
@@ -428,7 +422,6 @@
                 </div>
             </div>
 
-            <!-- Step 6: Daily Quantity (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-6">
                 <label>How many do you have regularly per day?</label>
                 <select name="q6_daily" id="input-q6" required>
@@ -444,7 +437,6 @@
                 </div>
             </div>
 
-            <!-- Step 7: Circle (Smoker/Ex-Smoker only) -->
             <div class="question-step" id="step-7">
                 <label>Which of these people are smokers in your circle?</label>
                 <div class="checkbox-group">
@@ -461,7 +453,6 @@
                 </div>
             </div>
 
-            <!-- Step 8: Story (All) -->
             <div class="question-step" id="step-8">
                 <label>Now is time for you, to tell us a history of your life related with tobacco. Take your time and put it all out:</label>
                 <textarea name="q8_story" id="input-q8" rows="6" placeholder="Placeholder text to be changed later. Placeholder text to be changed later. Placeholder text to be changed later." required></textarea>
@@ -471,7 +462,6 @@
                 </div>
             </div>
 
-            <!-- Step 9: Feelings (All) -->
             <div class="question-step" id="step-9">
                 <label>Before we finish, please share with us your feelings about smoking and quitting.</label>
                 <textarea name="q9_feelings" id="input-q9" rows="4" required></textarea>
