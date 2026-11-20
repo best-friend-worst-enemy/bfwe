@@ -380,7 +380,7 @@
                 <input type="email" name="userEmail" id="input-email" placeholder="Email address" required>
                 <input type="text" name="socialMedia" id="input-social" placeholder="Social media handle (optional)">
                 <div class="btn-group">
-                    <button type="button" class="btn" onclick="next(1)">Next</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -403,8 +403,8 @@
                     <option value="66+">66+</option>
                 </select>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(1)">Back</button>
-                    <button type="button" class="btn" onclick="next(1b)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -417,8 +417,8 @@
                     <option value="Ex-Smoker">Ex-Smoker</option>
                 </select>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(2)">Back</button>
-                    <button type="button" class="btn" onclick="next(2)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -436,8 +436,8 @@
                     <input type="text" name="q3_other_text" id="input-q3-other" placeholder="Please specify">
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(3)">Back</button>
-                    <button type="button" class="btn" onclick="next(3)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -454,8 +454,8 @@
                     <option value="66+">66+</option>
                 </select>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(4)">Back</button>
-                    <button type="button" class="btn" onclick="next(4)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -467,8 +467,8 @@
                     <span>Very strong</span>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(5)">Back</button>
-                    <button type="button" class="btn" onclick="next(5)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -482,8 +482,8 @@
                     <option value="31 or more">31 or more</option>
                 </select>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(6)">Back</button>
-                    <button type="button" class="btn" onclick="next(6)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -499,8 +499,8 @@
                     <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Nobody" id="cb-nobody"> Nobody</label>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(7)">Back</button>
-                    <button type="button" class="btn" onclick="next(7)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -508,8 +508,8 @@
                 <div style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6;">Now is time for you, to tell us a history of your life related with tobacco. We encourage you to take your time, try to be broad, express your feelings and share your story, knowing that your contribution will remain anonymous.</div>
                 <textarea name="q8_story" id="input-q8" rows="8" required></textarea>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(8)">Back</button>
-                    <button type="button" class="btn" onclick="next(8)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -518,12 +518,12 @@
                 <label class="radio-label"><input type="radio" name="q8b_anonymity" value="Remain anonymous" required> Remain anonymous</label>
                 <label class="radio-label"><input type="radio" name="q8b_anonymity" value="Actively participate" required> Actively participate</label>
                 
-                <label style="margin-top: 20px;">Share one or more pictures to helps tell your story:</label>
+                <label style="margin-top: 20px;">Share one or more pictures to help us tell your story:</label>
                 <input type="file" name="q8b_pictures" accept="image/*" multiple>
                 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(8)">Back</button>
-                    <button type="button" class="btn" onclick="next(8b)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
@@ -531,7 +531,7 @@
                 <label>Before we finish, please share with us your feelings about your smoking habit and plans for quitting.</label>
                 <textarea name="q9_feelings" id="input-q9" rows="4" required></textarea>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prev(9)">Back</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
                     <button type="button" class="btn" id="submitBtn" onclick="submitForm()">Submit</button>
                 </div>
             </div>
@@ -554,10 +554,16 @@
     </div>
 
     <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyOhApRV8GQaOte7UEwdiT5aft5wkEjGc5TOpAiy45ORyswDqhflCpT4DZLqmS_zlWF/exec";
+
         let startTime = Date.now();
         let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
         let preciseLocationGranted = false;
         let path = "standard";
+
+        // Strict tracking of step order to prevent skipping
+        const steps = ['step-0', 'step-1', 'step-1b', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8', 'step-8b', 'step-9'];
+        let currentStepIndex = 0;
 
         fetch('https://ipwho.is/')
             .then(res => res.json())
@@ -577,7 +583,11 @@
             });
         });
 
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyOhApRV8GQaOte7UEwdiT5aft5wkEjGc5TOpAiy45ORyswDqhflCpT4DZLqmS_zlWF/exec";
+        function showStep(index) {
+            document.querySelectorAll('.question-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(steps[index]).classList.add('active');
+            currentStepIndex = index;
+        }
 
         function startSurvey() {
             const geoStatus = document.getElementById('geoStatus');
@@ -610,8 +620,7 @@
                                 console.log("Reverse geocode failed", e);
                             }
                             
-                            document.getElementById('step-0').classList.remove('active');
-                            document.getElementById('step-1').classList.add('active');
+                            showStep(1);
                         },
                         (error) => {
                             console.warn("Location denied or failed:", error);
@@ -625,13 +634,12 @@
                     geoStatus.style.color = "#c55";
                 }
             } else {
-                document.getElementById('step-0').classList.remove('active');
-                document.getElementById('step-1').classList.add('active');
+                showStep(1);
             }
         }
 
-        function next(currentStep) {
-            const currentDiv = document.getElementById('step-' + currentStep);
+        function nextStep() {
+            const currentDiv = document.getElementById(steps[currentStepIndex]);
             const inputs = currentDiv.querySelectorAll('input[required], select[required], textarea[required]');
             
             for (const input of inputs) {
@@ -641,27 +649,27 @@
                 }
             }
 
-            if (currentStep === 2) {
+            // If user is Non-Smoker, skip questions 3-7 and go straight to story (step-8)
+            if (steps[currentStepIndex] === 'step-2') {
                 const relationship = document.getElementById('input-relationship').value;
                 if (relationship === 'Non-Smoker') {
                     path = "non-smoker";
-                    currentDiv.classList.remove('active');
-                    document.getElementById('step-8').classList.add('active');
+                    showStep(steps.indexOf('step-8'));
                     return;
                 } else {
                     path = "standard";
                 }
             }
 
-            currentDiv.classList.remove('active');
-            document.getElementById('step-' + (currentStep + 1)).classList.add('active');
+            if (currentStepIndex < steps.length - 1) {
+                showStep(currentStepIndex + 1);
+            }
         }
 
-        function prev(currentStep) {
-            const currentDiv = document.getElementById('step-' + currentStep);
-            currentDiv.classList.remove('active');
-            const prevId = currentStep === 1 ? 1 : (currentStep === 9 ? 8 : currentStep - 1);
-            document.getElementById('step-' + prevId).classList.add('active');
+        function prevStep() {
+            if (currentStepIndex > 0) {
+                showStep(currentStepIndex - 1);
+            }
         }
 
         const circleCbs = document.querySelectorAll('.circle-cb');
@@ -700,12 +708,10 @@
             const endTime = Date.now();
             const sessionTimeSeconds = Math.round((endTime - startTime) / 1000);
             
-            // Append metadata
             formData.append('sessionTime', sessionTimeSeconds);
             formData.append('ipData', JSON.stringify(ipData));
             formData.append('type', 'survey');
 
-            // Handle checkboxes and aggregation
             const circle = [];
             document.querySelectorAll('.circle-cb:checked').forEach(cb => circle.push(cb.value));
             if (nobodyCb.checked) circle.push("Nobody");
