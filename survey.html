@@ -22,11 +22,7 @@
             --font-body: 'Sono', monospace;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-dark);
@@ -42,11 +38,9 @@
 
         #bg-video {
             position: fixed;
-            top: 0;
-            left: 50%;
+            top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 100vw; 
-            height: 100vh; 
+            width: 100vw; height: 100vh; 
             object-fit: cover; 
             object-position: top center;
             z-index: -2; 
@@ -56,10 +50,8 @@
 
         .video-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             background: radial-gradient(circle at center, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.9) 100%);
             z-index: -1;
             pointer-events: none;
@@ -67,8 +59,7 @@
 
         .top-bar {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             width: 100%;
             padding: 20px 0;
             display: flex;
@@ -81,20 +72,12 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .home-btn img {
-            height: 40px;
-            width: auto;
-            transition: opacity 0.3s ease;
-        }
-
-        .home-btn img:hover {
-            content: url('Assets/1-index/logo-color.gif');
-        }
+        .home-btn img { height: 40px; width: auto; transition: opacity 0.3s ease; }
+        .home-btn img:hover { content: url('Assets/1-index/logo-color.gif'); }
 
         .bottom-bar {
             position: fixed;
-            bottom: 0;
-            left: 0;
+            bottom: 0; left: 0;
             width: 100%;
             padding: 10px 0;
             display: flex;
@@ -119,15 +102,8 @@
             transition: color 0.3s ease;
         }
 
-        .social-link:hover {
-            color: var(--brand-gold);
-        }
-
-        .social-icon {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-        }
+        .social-link:hover { color: var(--brand-gold); }
+        .social-icon { width: 16px; height: 16px; fill: currentColor; }
 
         .survey-container {
             width: 100%;
@@ -144,14 +120,8 @@
             overflow-y: auto;
         }
 
-        .question-step {
-            display: none;
-            flex-direction: column;
-        }
-
-        .question-step.active {
-            display: flex;
-        }
+        .question-step { display: none; flex-direction: column; }
+        .question-step.active { display: flex; }
 
         label {
             font-family: var(--font-body);
@@ -176,16 +146,8 @@
             transition: border-color 0.3s;
         }
 
-        select {
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        select option {
-            background-color: #000000;
-            color: var(--brand-gold);
-        }
+        select { cursor: pointer; appearance: none; -webkit-appearance: none; }
+        select option { background-color: #000000; color: var(--brand-gold); }
 
         input:focus, textarea:focus, select:focus {
             border-color: var(--brand-gold);
@@ -200,8 +162,7 @@
 
         input[type="range"] {
             -webkit-appearance: none;
-            width: 100%;
-            height: 6px;
+            width: 100%; height: 6px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
             outline: none;
@@ -211,136 +172,71 @@
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             border-radius: 50%;
             background: var(--brand-gold);
             cursor: pointer;
         }
 
         .slider-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 24px;
+            display: flex; justify-content: space-between;
+            font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px;
         }
 
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 24px;
-        }
+        .checkbox-group { display: flex; flex-direction: column; gap: 15px; margin-bottom: 24px; }
 
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            color: var(--text-light);
-            cursor: pointer;
-            margin-bottom: 0;
+        .checkbox-label, .radio-label {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 1rem; color: var(--text-light); cursor: pointer; margin-bottom: 0;
         }
+        
+        .radio-label { margin-bottom: 10px; }
 
         .checkbox-label input[type="checkbox"],
         .radio-label input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: var(--brand-gold);
+            width: 20px; height: 20px;
+            cursor: pointer; accent-color: var(--brand-gold);
         }
 
-        .radio-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            color: var(--text-light);
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
+        .other-input-container { margin-top: -10px; margin-bottom: 24px; display: none; }
+        .other-input-container.active { display: block; }
 
-        .other-input-container {
-            margin-top: -10px;
-            margin-bottom: 24px;
-            display: none;
-        }
-
-        .other-input-container.active {
-            display: block;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            align-self: flex-start;
-            flex-wrap: wrap;
-        }
+        .btn-group { display: flex; gap: 15px; align-self: flex-start; flex-wrap: wrap; }
 
         .btn {
             font-family: var(--font-body);
             padding: 16px 32px;
             background-color: var(--brand-gold);
             color: var(--bg-dark);
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+            border: none; border-radius: 50px;
+            font-weight: 600; font-size: 1rem; letter-spacing: 1px;
+            text-transform: uppercase; cursor: pointer;
+            transition: all 0.3s ease; text-decoration: none; display: inline-block;
         }
 
         .btn:hover {
-            background-color: transparent;
-            color: var(--brand-gold);
+            background-color: transparent; color: var(--brand-gold);
             box-shadow: 0 0 15px rgba(242, 141, 24, 0.2);
         }
 
         .btn-back {
-            background-color: transparent;
-            color: var(--text-light);
+            background-color: transparent; color: var(--text-light);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .btn-back:hover {
-            border-color: var(--text-light);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            box-shadow: none;
+            border-color: var(--text-light); background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light); box-shadow: none;
         }
 
         #status {
-            margin-top: 20px;
-            font-family: var(--font-body);
-            color: var(--text-light);
-            font-weight: 500;
-            text-align: center;
-            white-space: pre-line;
-            line-height: 1.6;
+            margin-top: 20px; font-family: var(--font-body); color: var(--text-light);
+            font-weight: 500; text-align: center; white-space: pre-line; line-height: 1.6;
         }
 
-        #status .accent-email {
-            color: var(--brand-gold);
-        }
+        #status .accent-email { color: var(--brand-gold); }
 
-        .home-return-btn {
-            display: none;
-            margin-top: 30px;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .location-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 10px;
-        }
+        .home-return-btn { display: none; margin-top: 30px; width: 100%; text-align: center; }
     </style>
 </head>
 <body>
@@ -365,7 +261,6 @@
                     <p style="margin-bottom: 15px;">This survey will take less than 5 minutes, but we encourage you to take your time, express your feelings and tell your story knowing that your contribution will remain anonymous. We have no interest in using the gathered information for any other purpose than for art. Please, allow your location for this survey.</p>
                     <p>All personal information will be covered by GPDR, allowing you to manage permission, set the level of use, and ask for deletion of your data.</p>
                 </div>
-                
                 <div class="btn-group" style="margin-top: 30px;">
                     <button type="button" class="btn" onclick="startSurvey()">Start</button>
                     <a href="index.html" class="btn btn-back">Return</a>
@@ -519,7 +414,7 @@
                 <label class="radio-label"><input type="radio" name="q8b_anonymity" value="Actively participate" required> Actively participate</label>
                 
                 <label style="margin-top: 20px;">Share one or more pictures to help us tell your story:</label>
-                <input type="file" name="q8b_pictures" accept="image/*" multiple>
+                <input type="file" id="file-input" accept="image/*" multiple>
                 
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
@@ -561,7 +456,6 @@
         let preciseLocationGranted = false;
         let path = "standard";
 
-        // Strict tracking of step order to prevent skipping
         const steps = ['step-0', 'step-1', 'step-1b', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8', 'step-8b', 'step-9'];
         let currentStepIndex = 0;
 
@@ -577,7 +471,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
             video.playbackRate = 0.20; 
-            
             video.addEventListener('play', function() {
                 video.playbackRate = 0.20;
             });
@@ -591,22 +484,17 @@
 
         function startSurvey() {
             const geoStatus = document.getElementById('geoStatus');
-            
             if (!preciseLocationGranted) {
                 geoStatus.textContent = "Requesting location permission...";
                 geoStatus.style.color = "#f28d18";
-                
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         async (position) => {
                             const lat = position.coords.latitude;
                             const lon = position.coords.longitude;
-                            
                             ipData.area = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
                             preciseLocationGranted = true;
-                            
                             geoStatus.textContent = "Location recorded. Starting...";
-                            
                             try {
                                 const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
                                 const geoData = await geoRes.json();
@@ -616,14 +504,10 @@
                                         ipData.city = geoData.city || geoData.locality;
                                     }
                                 }
-                            } catch (e) {
-                                console.log("Reverse geocode failed", e);
-                            }
-                            
+                            } catch (e) { console.log("Reverse geocode failed", e); }
                             showStep(1);
                         },
                         (error) => {
-                            console.warn("Location denied or failed:", error);
                             geoStatus.textContent = "Permission denied. You must allow location to start the survey.";
                             geoStatus.style.color = "#c55";
                         },
@@ -641,7 +525,6 @@
         function nextStep() {
             const currentDiv = document.getElementById(steps[currentStepIndex]);
             const inputs = currentDiv.querySelectorAll('input[required], select[required], textarea[required]');
-            
             for (const input of inputs) {
                 if (!input.checkValidity()) {
                     input.reportValidity();
@@ -649,7 +532,6 @@
                 }
             }
 
-            // If user is Non-Smoker, skip questions 3-7 and go straight to story (step-8)
             if (steps[currentStepIndex] === 'step-2') {
                 const relationship = document.getElementById('input-relationship').value;
                 if (relationship === 'Non-Smoker') {
@@ -674,23 +556,16 @@
 
         const circleCbs = document.querySelectorAll('.circle-cb');
         const nobodyCb = document.getElementById('cb-nobody');
-
         circleCbs.forEach(cb => {
-            cb.addEventListener('change', () => {
-                if (cb.checked) nobodyCb.checked = false;
-            });
+            cb.addEventListener('change', () => { if (cb.checked) nobodyCb.checked = false; });
         });
-
         nobodyCb.addEventListener('change', () => {
-            if (nobodyCb.checked) {
-                circleCbs.forEach(cb => cb.checked = false);
-            }
+            if (nobodyCb.checked) { circleCbs.forEach(cb => cb.checked = false); }
         });
 
         const cbOther = document.getElementById('cb-other');
         const otherInputContainer = document.getElementById('other-input-container');
         const inputQ3Other = document.getElementById('input-q3-other');
-
         cbOther.addEventListener('change', () => {
             if (cbOther.checked) {
                 otherInputContainer.classList.add('active');
@@ -702,7 +577,17 @@
             }
         });
 
-        function submitForm() {
+        // Convert file to base64 helper
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        async function submitForm() {
             const form = document.getElementById('quizForm');
             const formData = new FormData(form);
             const endTime = Date.now();
@@ -726,6 +611,21 @@
             }
             formData.set('q3_products', q3Products.join(', '));
 
+            // Handle files manually
+            const fileInput = document.getElementById('file-input');
+            const files = fileInput.files;
+            const fileDataArray = [];
+
+            if (files.length > 0) {
+                // Optional: Show loading state for images
+                document.getElementById('submitBtn').textContent = "Processing images...";
+                for (let i = 0; i < files.length; i++) {
+                    const base64 = await getBase64(files[i]);
+                    fileDataArray.push({ name: files[i].name, data: base64 });
+                }
+                formData.append('uploadedFiles', JSON.stringify(fileDataArray));
+            }
+
             const statusDiv = document.getElementById('status');
             statusDiv.textContent = "Submitting...";
             statusDiv.style.color = "#bbbbbb";
@@ -733,10 +633,16 @@
             const submitBtn = document.getElementById('submitBtn');
             if (submitBtn) submitBtn.disabled = true;
 
+            // We send as URL-encoded to avoid multipart/form-data file stripping issues
+            const dataUrlEncoded = new URLSearchParams(formData).toString();
+
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: dataUrlEncoded
             })
             .then(() => {
                 statusDiv.innerHTML = "Thank you for sharing!<br>An email has been sent to <span class='accent-email'>" + (formData.get('userEmail') || "you") + "</span>";
