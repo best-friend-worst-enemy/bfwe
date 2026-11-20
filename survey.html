@@ -168,7 +168,7 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
             outline: none;
-            margin: 20px 0;
+            margin: 15px 0 20px 0;
         }
 
         input[type="range"]::-webkit-slider-thumb {
@@ -192,8 +192,7 @@
             font-size: 1.5rem;
             color: var(--brand-gold);
             font-family: var(--font-head);
-            margin-top: -10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .checkbox-group { display: flex; flex-direction: column; gap: 15px; margin-bottom: 24px; }
@@ -302,12 +301,12 @@
                 </select>
                 
                 <label style="margin-top: 20px;">What is your age group?</label>
+                <div class="slider-value-display" id="age-display">under 16</div>
                 <input type="range" id="age-slider" min="1" max="52" value="1" required oninput="updateAgeValue()">
                 <div class="slider-labels">
                     <span>under 16</span>
                     <span>66+</span>
                 </div>
-                <div class="slider-value-display" id="age-display">under 16</div>
                 <input type="hidden" name="age" id="input-age" value="under 16">
 
                 <div class="btn-group" style="margin-top: 30px;">
@@ -351,12 +350,12 @@
 
             <div class="question-step" id="step-4">
                 <label>At what age did you start?</label>
+                <div class="slider-value-display" id="start-age-display">under 10</div>
                 <input type="range" id="start-age-slider" min="1" max="58" value="1" required oninput="updateStartAgeValue()">
                 <div class="slider-labels">
                     <span>under 10</span>
                     <span>66+</span>
                 </div>
-                <div class="slider-value-display" id="start-age-display">under 10</div>
                 <input type="hidden" name="q4_age_started" id="input-q4" value="under 10">
 
                 <div class="btn-group" style="margin-top: 20px;">
