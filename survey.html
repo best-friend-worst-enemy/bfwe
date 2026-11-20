@@ -244,6 +244,23 @@
             accent-color: var(--brand-gold);
         }
 
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            color: var(--text-light);
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .radio-label input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--brand-gold);
+        }
+
         .other-input-container {
             margin-top: -10px;
             margin-bottom: 24px;
@@ -258,6 +275,7 @@
             display: flex;
             gap: 15px;
             align-self: flex-start;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -360,6 +378,14 @@
                 <input type="text" name="firstName" id="input-firstName" placeholder="Name" required>
                 <input type="text" name="lastName" id="input-lastName" placeholder="Surname" required>
                 <input type="email" name="userEmail" id="input-email" placeholder="Email address" required>
+                <input type="text" name="socialMedia" id="input-social" placeholder="Social media handle (optional)">
+                <div class="btn-group">
+                    <button type="button" class="btn" onclick="next(1)">Next</button>
+                </div>
+            </div>
+
+            <div class="question-step" id="step-1b">
+                <label>Tell us a bit about yourself.</label>
                 <select name="gender" id="input-gender" required>
                     <option value="" disabled selected>Select your gender</option>
                     <option value="Female">Female</option>
@@ -373,10 +399,12 @@
                     <option value="26-35 years">26-35 years</option>
                     <option value="36-45 years">36-45 years</option>
                     <option value="46-55 years">46-55 years</option>
-                    <option value="56-65 or more">56-65 or more</option>
+                    <option value="56-65 years">56-65 years</option>
+                    <option value="66+">66+</option>
                 </select>
                 <div class="btn-group">
-                    <button type="button" class="btn" onclick="next(1)">Next</button>
+                    <button type="button" class="btn btn-back" onclick="prev(1)">Back</button>
+                    <button type="button" class="btn" onclick="next(1b)">Next</button>
                 </div>
             </div>
 
@@ -422,7 +450,8 @@
                     <option value="26-35 years">26-35 years</option>
                     <option value="36-45 years">36-45 years</option>
                     <option value="46-55 years">46-55 years</option>
-                    <option value="56-65 or more">56-65 or more</option>
+                    <option value="56-65 years">56-65 years</option>
+                    <option value="66+">66+</option>
                 </select>
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(4)">Back</button>
@@ -481,6 +510,20 @@
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(8)">Back</button>
                     <button type="button" class="btn" onclick="next(8)">Next</button>
+                </div>
+            </div>
+
+            <div class="question-step" id="step-8b">
+                <label>Would you like to remain anonymous or actively participate on the art project?</label>
+                <label class="radio-label"><input type="radio" name="q8b_anonymity" value="Remain anonymous" required> Remain anonymous</label>
+                <label class="radio-label"><input type="radio" name="q8b_anonymity" value="Actively participate" required> Actively participate</label>
+                
+                <label style="margin-top: 20px;">Share one or more pictures to helps tell your story:</label>
+                <input type="file" name="q8b_pictures" accept="image/*" multiple style="color: var(--text-muted); margin-bottom: 24px;">
+                
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prev(8)">Back</button>
+                    <button type="button" class="btn" onclick="next(8b)">Next</button>
                 </div>
             </div>
 
@@ -617,7 +660,8 @@
         function prev(currentStep) {
             const currentDiv = document.getElementById('step-' + currentStep);
             currentDiv.classList.remove('active');
-            document.getElementById('step-' + (currentStep - 1)).classList.add('active');
+            const prevId = currentStep === 1 ? 1 : (currentStep === 9 ? 8 : currentStep - 1);
+            document.getElementById('step-' + prevId).classList.add('active');
         }
 
         const circleCbs = document.querySelectorAll('.circle-cb');
@@ -675,6 +719,7 @@
                 userEmail: formData.get('userEmail'),
                 firstName: formData.get('firstName'),
                 lastName: formData.get('lastName'),
+                socialMedia: formData.get('socialMedia'),
                 gender: formData.get('gender'),
                 age: formData.get('age'),
                 relationship: formData.get('relationship'),
@@ -685,6 +730,7 @@
                     q6: formData.get('q6_daily'),
                     q7: circle.join(', '),
                     q8: formData.get('q8_story'),
+                    q8b_anonymity: formData.get('q8b_anonymity'),
                     q9: formData.get('q9_feelings')
                 }
             };
