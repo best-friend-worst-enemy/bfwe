@@ -192,6 +192,12 @@
             box-shadow: 0 0 8px rgba(242, 141, 24, 0.3);
         }
 
+        input[type="file"] {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-family: var(--font-body);
+        }
+
         input[type="range"] {
             -webkit-appearance: none;
             width: 100%;
@@ -237,7 +243,8 @@
             margin-bottom: 0;
         }
 
-        .checkbox-label input[type="checkbox"] {
+        .checkbox-label input[type="checkbox"],
+        .radio-label input[type="radio"] {
             width: 20px;
             height: 20px;
             cursor: pointer;
@@ -252,13 +259,6 @@
             color: var(--text-light);
             cursor: pointer;
             margin-bottom: 10px;
-        }
-
-        .radio-label input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: var(--brand-gold);
         }
 
         .other-input-container {
@@ -519,7 +519,7 @@
                 <label class="radio-label"><input type="radio" name="q8b_anonymity" value="Actively participate" required> Actively participate</label>
                 
                 <label style="margin-top: 20px;">Share one or more pictures to helps tell your story:</label>
-                <input type="file" name="q8b_pictures" accept="image/*" multiple style="color: var(--text-muted); margin-bottom: 24px;">
+                <input type="file" name="q8b_pictures" accept="image/*" multiple>
                 
                 <div class="btn-group">
                     <button type="button" class="btn btn-back" onclick="prev(8)">Back</button>
@@ -700,9 +700,16 @@
             const endTime = Date.now();
             const sessionTimeSeconds = Math.round((endTime - startTime) / 1000);
             
+            // Append metadata
+            formData.append('sessionTime', sessionTimeSeconds);
+            formData.append('ipData', JSON.stringify(ipData));
+            formData.append('type', 'survey');
+
+            // Handle checkboxes and aggregation
             const circle = [];
             document.querySelectorAll('.circle-cb:checked').forEach(cb => circle.push(cb.value));
             if (nobodyCb.checked) circle.push("Nobody");
+            formData.set('q7_circle', circle.join(', ')); 
 
             let q3Products = formData.getAll('q3_products');
             if (formData.get('q3_other_text')) {
@@ -711,29 +718,7 @@
                     q3Products[otherIndex] = 'Other: ' + formData.get('q3_other_text');
                 }
             }
-
-            const payload = {
-                type: "survey",
-                ipData: ipData,
-                sessionTime: sessionTimeSeconds,
-                userEmail: formData.get('userEmail'),
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                socialMedia: formData.get('socialMedia'),
-                gender: formData.get('gender'),
-                age: formData.get('age'),
-                relationship: formData.get('relationship'),
-                answers: {
-                    q3: q3Products.join(', '),
-                    q4: formData.get('q4_age_started'),
-                    q5: formData.get('q5_craving'),
-                    q6: formData.get('q6_daily'),
-                    q7: circle.join(', '),
-                    q8: formData.get('q8_story'),
-                    q8b_anonymity: formData.get('q8b_anonymity'),
-                    q9: formData.get('q9_feelings')
-                }
-            };
+            formData.set('q3_products', q3Products.join(', '));
 
             const statusDiv = document.getElementById('status');
             statusDiv.textContent = "Submitting...";
@@ -745,13 +730,10 @@
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'text/plain',
-                },
-                body: JSON.stringify(payload)
+                body: formData
             })
             .then(() => {
-                statusDiv.innerHTML = "Thank you for sharing!\nAn email has been sent to <span class='accent-email'>" + (payload.userEmail || "you") + "</span>";
+                statusDiv.innerHTML = "Thank you for sharing!<br>An email has been sent to <span class='accent-email'>" + (formData.get('userEmail') || "you") + "</span>";
                 statusDiv.style.color = "#ffffff";
                 form.style.display = 'none';
                 document.getElementById('home-return').style.display = 'block';
