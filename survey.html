@@ -160,9 +160,11 @@
             font-family: var(--font-body);
         }
 
+        /* Styling for the new dials */
         input[type="range"] {
             -webkit-appearance: none;
-            width: 100%; height: 6px;
+            width: 100%; 
+            height: 8px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
             outline: none;
@@ -172,15 +174,26 @@
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px; height: 20px;
+            width: 24px; 
+            height: 24px;
             border-radius: 50%;
             background: var(--brand-gold);
             cursor: pointer;
+            box-shadow: 0 0 10px rgba(242, 141, 24, 0.5);
         }
 
         .slider-labels {
             display: flex; justify-content: space-between;
-            font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px;
+            font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;
+        }
+
+        .slider-value-display {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--brand-gold);
+            font-family: var(--font-head);
+            margin-top: -10px;
+            margin-bottom: 20px;
         }
 
         .checkbox-group { display: flex; flex-direction: column; gap: 15px; margin-bottom: 24px; }
@@ -287,17 +300,17 @@
                     <option value="Male">Male</option>
                     <option value="Non-binary">Non-binary</option>
                 </select>
-                <select name="age" id="input-age" required>
-                    <option value="" disabled selected>Select your age group</option>
-                    <option value="under 16">under 16</option>
-                    <option value="17-25 years">17-25 years</option>
-                    <option value="26-35 years">26-35 years</option>
-                    <option value="36-45 years">36-45 years</option>
-                    <option value="46-55 years">46-55 years</option>
-                    <option value="56-65 years">56-65 years</option>
-                    <option value="66+">66+</option>
-                </select>
-                <div class="btn-group">
+                
+                <label style="margin-top: 20px;">What is your age group?</label>
+                <input type="range" id="age-slider" min="1" max="52" value="1" required oninput="updateAgeValue()">
+                <div class="slider-labels">
+                    <span>under 16</span>
+                    <span>66+</span>
+                </div>
+                <div class="slider-value-display" id="age-display">under 16</div>
+                <input type="hidden" name="age" id="input-age" value="under 16">
+
+                <div class="btn-group" style="margin-top: 30px;">
                     <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
@@ -338,17 +351,15 @@
 
             <div class="question-step" id="step-4">
                 <label>At what age did you start?</label>
-                <select name="q4_age_started" id="input-q4" required>
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="under 16">under 16</option>
-                    <option value="17-25 years">17-25 years</option>
-                    <option value="26-35 years">26-35 years</option>
-                    <option value="36-45 years">36-45 years</option>
-                    <option value="46-55 years">46-55 years</option>
-                    <option value="56-65 years">56-65 years</option>
-                    <option value="66+">66+</option>
-                </select>
-                <div class="btn-group">
+                <input type="range" id="start-age-slider" min="1" max="58" value="1" required oninput="updateStartAgeValue()">
+                <div class="slider-labels">
+                    <span>under 10</span>
+                    <span>66+</span>
+                </div>
+                <div class="slider-value-display" id="start-age-display">under 10</div>
+                <input type="hidden" name="q4_age_started" id="input-q4" value="under 10">
+
+                <div class="btn-group" style="margin-top: 20px;">
                     <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
@@ -458,6 +469,48 @@
 
         const steps = ['step-0', 'step-1', 'step-1b', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8', 'step-8b', 'step-9'];
         let currentStepIndex = 0;
+
+        // --- Dial logic ---
+        function updateAgeValue() {
+            const slider = document.getElementById('age-slider');
+            const display = document.getElementById('age-display');
+            const hiddenInput = document.getElementById('input-age');
+            const val = parseInt(slider.value);
+            
+            if (val === 1) {
+                display.textContent = "under 16";
+                hiddenInput.value = "under 16";
+            } else if (val >= 52) {
+                display.textContent = "66+";
+                hiddenInput.value = "66+";
+            } else {
+                // Slider starts at 1 for <16, so 2 = 16, 3 = 17, etc.
+                const age = val + 14; 
+                display.textContent = age;
+                hiddenInput.value = age;
+            }
+        }
+
+        function updateStartAgeValue() {
+            const slider = document.getElementById('start-age-slider');
+            const display = document.getElementById('start-age-display');
+            const hiddenInput = document.getElementById('input-q4');
+            const val = parseInt(slider.value);
+            
+            if (val === 1) {
+                display.textContent = "under 10";
+                hiddenInput.value = "under 10";
+            } else if (val >= 58) {
+                display.textContent = "66+";
+                hiddenInput.value = "66+";
+            } else {
+                // Slider starts at 1 for <10, so 2 = 10, 3 = 11, etc.
+                const age = val + 8; 
+                display.textContent = age;
+                hiddenInput.value = age;
+            }
+        }
+        // ------------------
 
         fetch('https://ipwho.is/')
             .then(res => res.json())
