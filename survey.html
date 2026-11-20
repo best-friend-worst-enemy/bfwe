@@ -160,7 +160,7 @@
             font-family: var(--font-body);
         }
 
-        /* Styling for the new dials */
+        /* Styling for the dials */
         input[type="range"] {
             -webkit-appearance: none;
             width: 100%; 
@@ -168,7 +168,7 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
             outline: none;
-            margin: 15px 0 20px 0;
+            margin: 10px 0 15px 0;
         }
 
         input[type="range"]::-webkit-slider-thumb {
@@ -192,6 +192,7 @@
             font-size: 1.5rem;
             color: var(--brand-gold);
             font-family: var(--font-head);
+            margin-top: 20px;
             margin-bottom: 10px;
         }
 
@@ -309,7 +310,7 @@
                 </div>
                 <input type="hidden" name="age" id="input-age" value="under 16">
 
-                <div class="btn-group" style="margin-top: 30px;">
+                <div class="btn-group" style="margin-top: 20px;">
                     <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
