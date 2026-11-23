@@ -7,7 +7,6 @@
     <title>Survey | BFWE</title>
     
     <link rel="icon" type="image/png" href="Assets/1-index/icon-color.png">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Pinyon+Script&family=Sono:wght@500&display=swap" rel="stylesheet">
@@ -130,6 +129,7 @@
             display: block;
             color: var(--text-light);
             font-weight: 500;
+            line-height: 1.5;
         }
 
         input[type="email"], input[type="text"], textarea, select {
@@ -154,13 +154,39 @@
             box-shadow: 0 0 8px rgba(242, 141, 24, 0.3);
         }
 
-        input[type="file"] {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-family: var(--font-body);
+        .file-upload-wrapper {
+            position: relative;
+            margin-bottom: 10px;
         }
 
-        /* Styling for the dials */
+        .file-upload-wrapper input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-btn {
+            font-family: var(--font-body);
+            padding: 16px 32px;
+            background-color: var(--brand-gold);
+            color: var(--bg-dark);
+            border: none; border-radius: 50px;
+            font-weight: 600; font-size: 1rem; letter-spacing: 1px;
+            text-transform: uppercase; cursor: pointer;
+            transition: all 0.3s ease; display: inline-block;
+            text-align: center;
+        }
+
+        .file-upload-btn:hover {
+            background-color: transparent; color: var(--brand-gold);
+            box-shadow: 0 0 15px rgba(242, 141, 24, 0.2);
+        }
+
+        .file-upload-name {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            word-break: break-all;
+        }
+
         input[type="range"] {
             -webkit-appearance: none;
             width: 100%; 
@@ -205,10 +231,38 @@
         
         .radio-label { margin-bottom: 10px; }
 
-        .checkbox-label input[type="checkbox"],
+        .checkbox-label input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px; 
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--brand-gold);
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            outline: none;
+            flex-shrink: 0;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked {
+            background-color: var(--brand-gold);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+        }
+
         .radio-label input[type="radio"] {
             width: 20px; height: 20px;
             cursor: pointer; accent-color: var(--brand-gold);
+            flex-shrink: 0;
         }
 
         .other-input-container { margin-top: -10px; margin-bottom: 24px; display: none; }
@@ -250,6 +304,47 @@
         #status .accent-email { color: var(--brand-gold); }
 
         .home-return-btn { display: none; margin-top: 30px; width: 100%; text-align: center; }
+
+        .q-sub-block { margin-bottom: 30px; }
+
+        .carousel-container {
+            position: relative;
+            min-height: 180px;
+            margin-bottom: 20px;
+        }
+        
+        .carousel-slide {
+            display: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .carousel-slide.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .carousel-dot.active { background: var(--brand-gold); }
     </style>
 </head>
 <body>
@@ -270,86 +365,109 @@
         <form id="quizForm" onsubmit="event.preventDefault();">
             
             <div class="question-step active" id="step-0">
-                <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">
-                    <p style="margin-bottom: 15px;">This survey will take less than 5 minutes, but we encourage you to take your time, express your feelings and tell your story knowing that your contribution will remain anonymous. We have no interest in using the gathered information for any other purpose than for art. Please, allow your location for this survey.</p>
-                    <p>All personal information will be covered by GPDR, allowing you to manage permission, set the level of use, and ask for deletion of your data.</p>
+                
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <p>This is a quick survey that will take you less than 5 minutes for the standard questions, but we encourage you to take your time and share feelings that will inspire us.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <p>All survey participants will be kept informed about our progress and some will be invited for further interviews. At the end of this survey, you will have the choice to actively participate on our project or remain anonymous. All shared information will be protected by GDPR legislation. Know more on our privacy policy <a href="privacy-policy.html" style="color:var(--brand-gold); text-decoration: none;">page</a>.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <p>We want to understand people’s relationship with tobacco or nicotine and get to know your most interesting story in order to inspire our art creation. For example, you can tell us how was your first time, or a memory that is directly connected with tobacco or nicotine, or even a never sent message for a person that you love.</p>
+                    </div>
                 </div>
-                <div class="btn-group" style="margin-top: 30px;">
+
+                <div class="carousel-nav">
+                    <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(1)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(2)"></div>
+                </div>
+
+                <div class="btn-group" style="margin-top: 10px;">
                     <button type="button" class="btn" onclick="startSurvey()">Start</button>
                     <a href="index.html" class="btn btn-back">Return</a>
                 </div>
-                <div id="geoStatus" style="font-size: 0.85rem; color: var(--brand-gold); margin-top: 15px;"></div>
             </div>
 
             <div class="question-step" id="step-1">
-                <label>Tell us a bit about yourself.</label>
-                <input type="text" name="firstName" id="input-firstName" placeholder="Name" required>
-                <input type="text" name="lastName" id="input-lastName" placeholder="Surname" required>
-                <input type="email" name="userEmail" id="input-email" placeholder="Email address" required>
-                <input type="text" name="socialMedia" id="input-social" placeholder="Social media handle (optional)">
-                <div class="btn-group">
-                    <button type="button" class="btn" onclick="nextStep()">Next</button>
-                </div>
-            </div>
-
-            <div class="question-step" id="step-1b">
-                <label>Tell us a bit about yourself.</label>
-                <select name="gender" id="input-gender" required>
-                    <option value="" disabled selected>Select your gender</option>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                    <option value="Non-binary">Non-binary</option>
-                </select>
+                <label>Feel free to share your story:</label>
+                <textarea name="q1_story" id="input-q1" rows="3" placeholder="Write here" required></textarea>
                 
-                <label style="margin-top: 20px;">What is your age group?</label>
-                <div class="slider-value-display" id="age-display">under 16</div>
-                <input type="range" id="age-slider" min="1" max="52" value="1" required oninput="updateAgeValue()">
-                <div class="slider-labels">
-                    <span>under 16</span>
-                    <span>66+</span>
+                <label>You can share one or more pictures to enrich your story.</label>
+                <div class="file-upload-wrapper">
+                    <label for="file-input" class="file-upload-btn">Choose files</label>
+                    <input type="file" id="file-input" accept="image/*" multiple onchange="updateFileLabel()">
+                    <div class="file-upload-name" id="file-name-display"></div>
                 </div>
-                <input type="hidden" name="age" id="input-age" value="under 16">
-
-                <div class="btn-group" style="margin-top: 20px;">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                
+                <div class="btn-group">
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
             <div class="question-step" id="step-2">
-                <label>What is your relationship with tobacco/nicotine products?</label>
-                <select name="relationship" id="input-relationship" required>
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="Smoker">Smoker</option>
-                    <option value="Non-Smoker">Non-Smoker</option>
-                    <option value="Ex-Smoker">Ex-Smoker</option>
-                </select>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                <label>Would you like to remain anonymous or actively participate in our art project?</label>
+                <label class="radio-label"><input type="radio" name="q2_anonymity" value="Actively participate" required> Actively participate</label>
+                <label class="radio-label"><input type="radio" name="q2_anonymity" value="Remain anonymous" required> Remain anonymous</label>
+                
+                <div class="btn-group" style="margin-top: 20px;">
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
             <div class="question-step" id="step-3">
-                <label>Which of these products you have experimented?</label>
-                <div class="checkbox-group">
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Regular Cigarettes"> Regular Cigarettes</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Rolled Tobacco"> Rolled Tobacco</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Vapes (e-cigarettes)"> Vapes (e-cigarettes)</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Heated Tobacco Sticks"> Heated Tobacco Sticks</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Nicotine Pouches"> Nicotine Pouches</label>
-                    <label class="checkbox-label"><input type="checkbox" name="q3_products" value="Other" id="cb-other"> Other</label>
-                </div>
-                <div class="other-input-container" id="other-input-container">
-                    <input type="text" name="q3_other_text" id="input-q3-other" placeholder="Please specify">
-                </div>
+                <label>Please tell us about your smoking or nicotine habits and your quitting plan, if any.</label>
+                <textarea name="q3_habits" id="input-q3" rows="3" placeholder="Write here" required></textarea>
+                
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
             <div class="question-step" id="step-4">
+                <label>Even if you chose to keep your story anonymous, we would like to get to know you better. Tell us a bit about yourself:</label>
+                
+                <div class="q-sub-block">
+                    <label>What is your relationship with tobacco or nicotine products?</label>
+                    <select name="q4_relationship" id="input-q4" required>
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="Smoker">Smoker</option>
+                        <option value="Non-Smoker">Non-Smoker</option>
+                        <option value="Ex-Smoker">Ex-Smoker</option>
+                        <option value="Nicotine">Nicotine</option>
+                    </select>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <div class="question-step" id="step-5">
+                <label>Which of these products have you experimented with?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" name="q5_products" value="Regular Cigarettes"> Regular Cigarettes</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q5_products" value="Rolled Tobacco"> Rolled Tobacco</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q5_products" value="Vapes (e-cigarettes)"> Vapes (e-cigarettes)</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q5_products" value="Heated Tobacco Sticks"> Heated Tobacco Sticks</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q5_products" value="Nicotine Pouches"> Nicotine Pouches</label>
+                    <label class="checkbox-label"><input type="checkbox" name="q5_products" value="Other" id="cb-other"> Other</label>
+                </div>
+                <div class="other-input-container" id="other-input-container">
+                    <input type="text" name="q5_other_text" id="input-q5-other" placeholder="Please specify">
+                </div>
+                
+                <div class="btn-group">
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <div class="question-step" id="step-6">
                 <label>At what age did you start?</label>
                 <div class="slider-value-display" id="start-age-display">under 10</div>
                 <input type="range" id="start-age-slider" min="1" max="58" value="1" required oninput="updateStartAgeValue()">
@@ -357,38 +475,10 @@
                     <span>under 10</span>
                     <span>66+</span>
                 </div>
-                <input type="hidden" name="q4_age_started" id="input-q4" value="under 10">
+                <input type="hidden" name="q6_age_started" id="input-q6" value="under 10">
 
                 <div class="btn-group" style="margin-top: 20px;">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
-                    <button type="button" class="btn" onclick="nextStep()">Next</button>
-                </div>
-            </div>
-
-            <div class="question-step" id="step-5">
-                <label>How strong is your craving to smoke when you wake up?</label>
-                <input type="range" name="q5_craving" id="input-q5" min="0" max="10" value="5">
-                <div class="slider-labels">
-                    <span>None</span>
-                    <span>Very strong</span>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
-                    <button type="button" class="btn" onclick="nextStep()">Next</button>
-                </div>
-            </div>
-
-            <div class="question-step" id="step-6">
-                <label>How many do you have regularly per day?</label>
-                <select name="q6_daily" id="input-q6" required>
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="1-10">1-10</option>
-                    <option value="11-20">11-20</option>
-                    <option value="21-30">21-30</option>
-                    <option value="31 or more">31 or more</option>
-                </select>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
@@ -404,40 +494,65 @@
                     <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Friends" class="circle-cb"> Friends</label>
                     <label class="checkbox-label"><input type="checkbox" name="q7_circle" value="Nobody" id="cb-nobody"> Nobody</label>
                 </div>
+                
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
             <div class="question-step" id="step-8">
-                <div style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6;">Now is time for you, to tell us a history of your life related with tobacco. We encourage you to take your time, try to be broad, express your feelings and share your story, knowing that your contribution will remain anonymous.</div>
-                <textarea name="q8_story" id="input-q8" rows="8" required></textarea>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
-                    <button type="button" class="btn" onclick="nextStep()">Next</button>
+                <div class="q-sub-block">
+                    <label>How strong is your craving when you wake up?</label>
+                    <input type="range" name="q8_craving" id="input-q8" min="0" max="10" value="5">
+                    <div class="slider-labels">
+                        <span>None</span>
+                        <span>Very strong</span>
+                    </div>
                 </div>
-            </div>
-
-            <div class="question-step" id="step-8b">
-                <label>Would you like to remain anonymous or actively participate on the art project?</label>
-                <label class="radio-label"><input type="radio" name="q8b_anonymity" value="Remain anonymous" required> Remain anonymous</label>
-                <label class="radio-label"><input type="radio" name="q8b_anonymity" value="Actively participate" required> Actively participate</label>
-                
-                <label style="margin-top: 20px;">Share one or more pictures to help us tell your story:</label>
-                <input type="file" id="file-input" accept="image/*" multiple>
                 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
                     <button type="button" class="btn" onclick="nextStep()">Next</button>
                 </div>
             </div>
 
             <div class="question-step" id="step-9">
-                <label>Before we finish, please share with us your feelings about your smoking habit and plans for quitting.</label>
-                <textarea name="q9_feelings" id="input-q9" rows="4" required></textarea>
+                <div class="q-sub-block">
+                    <label>Gender</label>
+                    <select name="gender" id="input-gender" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Non-binary">Non-binary</option>
+                    </select>
+                </div>
+
+                <div class="q-sub-block">
+                    <label>Age</label>
+                    <div class="slider-value-display" id="age-display">under 16</div>
+                    <input type="range" id="age-slider" min="1" max="52" value="1" required oninput="updateAgeValue()">
+                    <div class="slider-labels">
+                        <span>under 16</span>
+                        <span>66+</span>
+                    </div>
+                    <input type="hidden" name="age" id="input-age" value="under 16">
+                </div>
+                
+                <div class="btn-group" style="margin-top: 20px;">
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
+                    <button type="button" class="btn" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <div class="question-step" id="step-10">
+                <label>Who are you?</label>
+                <input type="text" name="firstName" id="input-firstName" placeholder="Full name" required>
+                <input type="email" name="userEmail" id="input-email" placeholder="Email" required>
+                <input type="text" name="socialMedia" id="input-social" placeholder="Social media (optional)">
+                
                 <div class="btn-group">
-                    <button type="button" class="btn btn-back" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn btn-back" onclick="prevStep()">Return</button>
                     <button type="button" class="btn" id="submitBtn" onclick="submitForm()">Submit</button>
                 </div>
             </div>
@@ -464,69 +579,65 @@
 
         let startTime = Date.now();
         let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
-        let preciseLocationGranted = false;
-        let path = "standard";
-
-        const steps = ['step-0', 'step-1', 'step-1b', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8', 'step-8b', 'step-9'];
+        
+        const steps = ['step-0', 'step-1', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8', 'step-9', 'step-10'];
         let currentStepIndex = 0;
 
-        // --- Dial logic ---
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+
+        function goToSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlideIndex = index;
+        }
+
+        setInterval(() => {
+            if (document.getElementById('step-0').classList.contains('active')) {
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                goToSlide(currentSlideIndex);
+            }
+        }, 6000);
+
+        function updateFileLabel() {
+            const fileInput = document.getElementById('file-input');
+            const display = document.getElementById('file-name-display');
+            if (fileInput.files.length > 0) {
+                display.textContent = Array.from(fileInput.files).map(f => f.name).join(', ');
+            } else {
+                display.textContent = "";
+            }
+        }
+
         function updateAgeValue() {
             const slider = document.getElementById('age-slider');
             const display = document.getElementById('age-display');
             const hiddenInput = document.getElementById('input-age');
             const val = parseInt(slider.value);
             
-            if (val === 1) {
-                display.textContent = "under 16";
-                hiddenInput.value = "under 16";
-            } else if (val >= 52) {
-                display.textContent = "66+";
-                hiddenInput.value = "66+";
-            } else {
-                // Slider starts at 1 for <16, so 2 = 16, 3 = 17, etc.
-                const age = val + 14; 
-                display.textContent = age;
-                hiddenInput.value = age;
-            }
+            if (val === 1) { display.textContent = "under 16"; hiddenInput.value = "under 16"; }
+            else if (val >= 52) { display.textContent = "66+"; hiddenInput.value = "66+"; }
+            else { const age = val + 14; display.textContent = age; hiddenInput.value = age; }
         }
 
         function updateStartAgeValue() {
             const slider = document.getElementById('start-age-slider');
             const display = document.getElementById('start-age-display');
-            const hiddenInput = document.getElementById('input-q4');
+            const hiddenInput = document.getElementById('input-q6');
             const val = parseInt(slider.value);
             
-            if (val === 1) {
-                display.textContent = "under 10";
-                hiddenInput.value = "under 10";
-            } else if (val >= 58) {
-                display.textContent = "66+";
-                hiddenInput.value = "66+";
-            } else {
-                // Slider starts at 1 for <10, so 2 = 10, 3 = 11, etc.
-                const age = val + 8; 
-                display.textContent = age;
-                hiddenInput.value = age;
-            }
+            if (val === 1) { display.textContent = "under 10"; hiddenInput.value = "under 10"; }
+            else if (val >= 58) { display.textContent = "66+"; hiddenInput.value = "66+"; }
+            else { const age = val + 8; display.textContent = age; hiddenInput.value = age; }
         }
-        // ------------------
-
-        fetch('https://ipwho.is/')
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    ipData.ip = data.ip || "Unknown";
-                    ipData.city = data.city || "Unknown";
-                }
-            }).catch(err => console.log("IP fetch error"));
 
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
             video.playbackRate = 0.20; 
-            video.addEventListener('play', function() {
-                video.playbackRate = 0.20;
-            });
+            video.addEventListener('play', function() { video.playbackRate = 0.20; });
         });
 
         function showStep(index) {
@@ -536,97 +647,47 @@
         }
 
         function startSurvey() {
-            const geoStatus = document.getElementById('geoStatus');
-            if (!preciseLocationGranted) {
-                geoStatus.textContent = "Requesting location permission...";
-                geoStatus.style.color = "#f28d18";
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        async (position) => {
-                            const lat = position.coords.latitude;
-                            const lon = position.coords.longitude;
-                            ipData.area = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
-                            preciseLocationGranted = true;
-                            geoStatus.textContent = "Location recorded. Starting...";
-                            try {
-                                const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
-                                const geoData = await geoRes.json();
-                                if (geoData.countryName) {
-                                    ipData.country = geoData.countryName;
-                                    if (geoData.city || geoData.locality) {
-                                        ipData.city = geoData.city || geoData.locality;
-                                    }
-                                }
-                            } catch (e) { console.log("Reverse geocode failed", e); }
-                            showStep(1);
-                        },
-                        (error) => {
-                            geoStatus.textContent = "Permission denied. You must allow location to start the survey.";
-                            geoStatus.style.color = "#c55";
-                        },
-                        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-                    );
-                } else {
-                    geoStatus.textContent = "Geolocation not supported by browser. Cannot start.";
-                    geoStatus.style.color = "#c55";
-                }
-            } else {
-                showStep(1);
-            }
+            showStep(1);
         }
 
         function nextStep() {
             const currentDiv = document.getElementById(steps[currentStepIndex]);
             const inputs = currentDiv.querySelectorAll('input[required], select[required], textarea[required]');
             for (const input of inputs) {
-                if (!input.checkValidity()) {
-                    input.reportValidity();
-                    return;
-                }
+                if (!input.checkValidity()) { input.reportValidity(); return; }
             }
 
-            if (steps[currentStepIndex] === 'step-2') {
-                const relationship = document.getElementById('input-relationship').value;
+            if (steps[currentStepIndex] === 'step-4') {
+                const relationship = document.getElementById('input-q4').value;
                 if (relationship === 'Non-Smoker') {
-                    path = "non-smoker";
-                    showStep(steps.indexOf('step-8'));
+                    showStep(steps.indexOf('step-9')); 
                     return;
-                } else {
-                    path = "standard";
                 }
             }
 
-            if (currentStepIndex < steps.length - 1) {
-                showStep(currentStepIndex + 1);
-            }
+            if (currentStepIndex < steps.length - 1) { showStep(currentStepIndex + 1); }
         }
 
         function prevStep() {
-            if (currentStepIndex > 0) {
-                showStep(currentStepIndex - 1);
-            }
+            if (currentStepIndex > 0) { showStep(currentStepIndex - 1); }
         }
 
         const circleCbs = document.querySelectorAll('.circle-cb');
         const nobodyCb = document.getElementById('cb-nobody');
-        circleCbs.forEach(cb => {
-            cb.addEventListener('change', () => { if (cb.checked) nobodyCb.checked = false; });
-        });
-        nobodyCb.addEventListener('change', () => {
-            if (nobodyCb.checked) { circleCbs.forEach(cb => cb.checked = false); }
-        });
+        circleCbs.forEach(cb => { cb.addEventListener('change', () => { if (cb.checked) nobodyCb.checked = false; }); });
+        nobodyCb.addEventListener('change', () => { if (nobodyCb.checked) { circleCbs.forEach(cb => cb.checked = false); } });
 
         const cbOther = document.getElementById('cb-other');
         const otherInputContainer = document.getElementById('other-input-container');
-        const inputQ3Other = document.getElementById('input-q3-other');
+        const inputQ5Other = document.getElementById('input-q5-other');
         cbOther.addEventListener('change', () => {
             if (cbOther.checked) {
                 otherInputContainer.classList.add('active');
-                inputQ3Other.required = true;
+                inputQ5Other.required = true;
             } else {
                 otherInputContainer.classList.remove('active');
-                inputQ3Other.required = false;
-                inputQ3Other.value = '';
+                inputQ5Other.required = false;
+                inputQ5Other.value = '';
             }
         });
 
@@ -645,35 +706,47 @@
             const endTime = Date.now();
             const sessionTimeSeconds = Math.round((endTime - startTime) / 1000);
 
-            // Build the JSON payload
-            const payload = {
-                firstName: formData.get('firstName') || "",
-                lastName: formData.get('lastName') || "",
-                userEmail: formData.get('userEmail') || "",
-                socialMedia: formData.get('socialMedia') || "",
-                gender: formData.get('gender') || "",
-                age: formData.get('age') || "",
-                relationship: formData.get('relationship') || "",
-                q3_products: formData.getAll('q3_products'),
-                q3_other_text: formData.get('q3_other_text') || "",
-                q4_age_started: formData.get('q4_age_started') || "",
-                q5_craving: formData.get('q5_craving') || "",
-                q6_daily: formData.get('q6_daily') || "",
-                q7_circle: [],
-                q8_story: formData.get('q8_story') || "",
-                q8b_anonymity: formData.get('q8b_anonymity') || "",
-                q9_feelings: formData.get('q9_feelings') || "",
-                sessionTime: sessionTimeSeconds,
-                ipData: ipData,
-                files: [] // Will hold base64 images
-            };
-
             const circle = [];
             document.querySelectorAll('.circle-cb:checked').forEach(cb => circle.push(cb.value));
             if (nobodyCb.checked) circle.push("Nobody");
-            payload.q7_circle = circle;
 
-            // Process files
+            let q5Products = formData.getAll('q5_products');
+            if (formData.get('q5_other_text')) {
+                const otherIndex = q5Products.indexOf('Other');
+                if (otherIndex > -1) { q5Products[otherIndex] = 'Other: ' + formData.get('q5_other_text'); }
+            }
+
+            const cookiesAccepted = sessionStorage.getItem('bfwe_cookie_choice') === 'accepted';
+
+            const fullName = formData.get('firstName') || "";
+            const nameParts = fullName.trim().split(' ');
+            const firstName = nameParts[0] || "";
+            const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : "";
+
+            const payload = {
+                action: 'save',
+                cookiesAccepted: cookiesAccepted,
+                firstName: firstName,
+                lastName: lastName,
+                userEmail: formData.get('userEmail') || "",
+                socialMedia: formData.get('socialMedia') || "",
+                ipData: ipData,
+                surveyAnswers: {
+                    q1_story: formData.get('q1_story') || "",
+                    q2_anonymity: formData.get('q2_anonymity') || "",
+                    q3_habits: formData.get('q3_habits') || "",
+                    q4_relationship: formData.get('q4_relationship') || "",
+                    q5_products: q5Products.join(', '),
+                    q6_age_started: formData.get('q6_age_started') || "",
+                    q7_circle: circle.join(', '),
+                    q8_craving: formData.get('q8_craving') || "",
+                    gender: formData.get('gender') || "",
+                    age: formData.get('age') || "",
+                    sessionTime: sessionTimeSeconds
+                },
+                files: []
+            };
+
             const fileInput = document.getElementById('file-input');
             const files = fileInput.files;
             
@@ -692,13 +765,10 @@
             const submitBtn = document.getElementById('submitBtn');
             if (submitBtn) submitBtn.disabled = true;
 
-            // Send as text/plain JSON
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'text/plain',
-                },
+                headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify(payload)
             })
             .then(() => {
