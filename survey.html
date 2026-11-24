@@ -397,7 +397,7 @@
                 <label>You can share one or more pictures to enrich your story.</label>
                 <div class="file-upload-wrapper">
                     <label for="file-input" class="file-upload-btn">Choose files</label>
-                    <input type="file" id="file-input" accept="image/*" multiple onchange="updateFileLabel()">
+                    <input type="file" name="q1_files" id="file-input" accept="image/*" multiple onchange="updateFileLabel()">
                     <div class="file-upload-name" id="file-name-display"></div>
                 </div>
                 
@@ -574,17 +574,34 @@
         </a>
     </div>
 
-    <script>
-        
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxF4hFnCQeFkAhST2mtBtS5iD5xLoUYZoQmTY9uAAvFgS-3gEugIJa6qvYIrBybFysFJw/exec";
+    <!-- Hidden Iframe & Form for Submission to bypass CORS entirely -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    <form id="hiddenSubmitForm" action="https://script.google.com/macros/s/AKfycbxF4hFnCQeFkAhST2mtBtS5iD5xLoUYZoQmTY9uAAvFgS-3gEugIJa6qvYIrBybFysFJw/exec" method="POST" target="hidden_iframe" style="display:none;">
+        <input type="text" name="firstName">
+        <input type="text" name="lastName">
+        <input type="text" name="userEmail">
+        <input type="text" name="socialMedia">
+        <input type="text" name="ipData">
+        <input type="text" name="q1_story">
+        <input type="text" name="q2_anonymity">
+        <input type="text" name="q3_habits">
+        <input type="text" name="q4_relationship">
+        <input type="text" name="q5_products">
+        <input type="text" name="q6_age_started">
+        <input type="text" name="q7_circle">
+        <input type="text" name="q8_craving">
+        <input type="text" name="gender">
+        <input type="text" name="age">
+        <input type="file" name="q1_files" multiple>
+    </form>
 
+    <script>
         let startTime = Date.now();
         let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
         
         const steps = ['step-0', 'step-1', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8', 'step-9', 'step-10'];
         let currentStepIndex = 0;
 
-        // --- Carousel Logic ---
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.carousel-slide');
         const dots = document.querySelectorAll('.carousel-dot');
@@ -604,7 +621,16 @@
             }
         }, 6000);
 
-        // --- Slider Logic ---
+        function updateFileLabel() {
+            const fileInput = document.getElementById('file-input');
+            const display = document.getElementById('file-name-display');
+            if (fileInput.files.length > 0) {
+                display.textContent = Array.from(fileInput.files).map(f => f.name).join(', ');
+            } else {
+                display.textContent = "";
+            }
+        }
+
         function updateAgeValue() {
             const slider = document.getElementById('age-slider');
             const display = document.getElementById('age-display');
@@ -627,17 +653,6 @@
             else { const age = val + 8; display.textContent = age; hiddenInput.value = age; }
         }
 
-        function updateFileLabel() {
-            const fileInput = document.getElementById('file-input');
-            const display = document.getElementById('file-name-display');
-            if (fileInput.files.length > 0) {
-                display.textContent = Array.from(fileInput.files).map(f => f.name).join(', ');
-            } else {
-                display.textContent = "";
-            }
-        }
-
-        // --- Init & Setup ---
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
             video.playbackRate = 0.20; 
@@ -664,7 +679,6 @@
             showStep(1);
         }
 
-        // --- Navigation & Logic ---
         function nextStep() {
             const currentDiv = document.getElementById(steps[currentStepIndex]);
             const inputs = currentDiv.querySelectorAll('input[required], select[required], textarea[required]');
@@ -706,21 +720,9 @@
             }
         });
 
-        // --- Submission ---
-        function getBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        }
-
-        async function submitForm() {
+        function submitForm() {
             const form = document.getElementById('quizForm');
             const formData = new FormData(form);
-            const endTime = Date.now();
-            const sessionTimeSeconds = Math.round((endTime - startTime) / 1000);
 
             const circle = [];
             document.querySelectorAll('.circle-cb:checked').forEach(cb => circle.push(cb.value));
@@ -737,64 +739,48 @@
             const firstName = nameParts[0] || "";
             const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : "";
 
-            const payload = {
-                firstName: firstName,
-                lastName: lastName,
-                userEmail: formData.get('userEmail') || "",
-                socialMedia: formData.get('socialMedia') || "",
-                ipData: ipData,
-                surveyAnswers: {
-                    q1_story: formData.get('q1_story') || "",
-                    q2_anonymity: formData.get('q2_anonymity') || "",
-                    q3_habits: formData.get('q3_habits') || "",
-                    q4_relationship: formData.get('q4_relationship') || "",
-                    q5_products: q5Products.join(', '),
-                    q6_age_started: formData.get('q6_age_started') || "",
-                    q7_circle: circle.join(', '),
-                    q8_craving: formData.get('q8_craving') || "",
-                    gender: formData.get('gender') || "",
-                    age: formData.get('age') || "",
-                    sessionTime: sessionTimeSeconds
-                },
-                files: []
-            };
+            // Populate hidden form
+            const hf = document.getElementById('hiddenSubmitForm');
+            hf.querySelector('[name="firstName"]').value = firstName;
+            hf.querySelector('[name="lastName"]').value = lastName;
+            hf.querySelector('[name="userEmail"]').value = formData.get('userEmail') || "";
+            hf.querySelector('[name="socialMedia"]').value = formData.get('socialMedia') || "";
+            hf.querySelector('[name="ipData"]').value = JSON.stringify(ipData);
+            hf.querySelector('[name="q1_story"]').value = formData.get('q1_story') || "";
+            hf.querySelector('[name="q2_anonymity"]').value = formData.get('q2_anonymity') || "";
+            hf.querySelector('[name="q3_habits"]').value = formData.get('q3_habits') || "";
+            hf.querySelector('[name="q4_relationship"]').value = formData.get('q4_relationship') || "";
+            hf.querySelector('[name="q5_products"]').value = q5Products.join(', ');
+            hf.querySelector('[name="q6_age_started"]').value = formData.get('q6_age_started') || "";
+            hf.querySelector('[name="q7_circle"]').value = circle.join(', ');
+            hf.querySelector('[name="q8_craving"]').value = formData.get('q8_craving') || "";
+            hf.querySelector('[name="gender"]').value = formData.get('gender') || "";
+            hf.querySelector('[name="age"]').value = formData.get('age') || "";
 
+            // Copy files to hidden form
             const fileInput = document.getElementById('file-input');
-            const files = fileInput.files;
-            
-            if (files.length > 0) {
-                document.getElementById('submitBtn').textContent = "Processing images...";
-                for (let i = 0; i < files.length; i++) {
-                    const base64 = await getBase64(files[i]);
-                    payload.files.push({ name: files[i].name, data: base64 });
-                }
+            const hfFileInput = hf.querySelector('[name="q1_files"]');
+            const dataTransfer = new DataTransfer();
+            for (let i = 0; i < fileInput.files.length; i++) {
+                dataTransfer.items.add(fileInput.files[i]);
             }
+            hfFileInput.files = dataTransfer.files;
 
+            // Submit
             const statusDiv = document.getElementById('status');
             statusDiv.textContent = "Submitting...";
             statusDiv.style.color = "#bbbbbb";
-            
-            const submitBtn = document.getElementById('submitBtn');
-            if (submitBtn) submitBtn.disabled = true;
+            document.getElementById('submitBtn').disabled = true;
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'text/plain' },
-                body: JSON.stringify(payload)
-            })
-            .then(() => {
-                statusDiv.innerHTML = "Thank you for sharing!<br>An email has been sent to <span class='accent-email'>" + (payload.userEmail || "you") + "</span>";
+            hf.submit();
+
+            // Show success message after a brief delay to allow submission
+            setTimeout(() => {
+                statusDiv.innerHTML = "Thank you for sharing!<br>An email has been sent to <span class='accent-email'>" + (formData.get('userEmail') || "you") + "</span>";
                 statusDiv.style.color = "#ffffff";
-                form.style.display = 'none';
+                document.getElementById('quizForm').style.display = 'none';
                 document.getElementById('home-return').style.display = 'block';
-            })
-            .catch(err => {
-                statusDiv.textContent = "Submission failed. Please try again.";
-                statusDiv.style.color = "#c55";
-                if (submitBtn) submitBtn.disabled = false;
-                console.error(err);
-            });
+            }, 2000);
         }
     </script>
 
