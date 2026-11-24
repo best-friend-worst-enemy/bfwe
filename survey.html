@@ -575,11 +575,11 @@
     </div>
 
     <script>
-        // REPLACE THIS WITH YOUR NEW WEB APP URL
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxF4hFnCQeFkAhST2mtBtS5iD5xLoUYZoQmTY9uAAvFgS-3gEugIJa6qvYIrBybFysFJw/exec";
 
         let startTime = Date.now();
-        let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
+        // Updated ipData object to hold lat and lon
+        let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", lat: null, lon: null };
         
         const steps = ['step-0', 'step-1', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8', 'step-9', 'step-10'];
         let currentStepIndex = 0;
@@ -643,13 +643,16 @@
             video.playbackRate = 0.20; 
             video.addEventListener('play', function() { video.playbackRate = 0.20; });
 
-            fetch('https://ipwho.is/')
+            // Using ipapi.co for better coordinate accuracy
+            fetch('https://ipapi.co/json/')
                 .then(res => res.json())
                 .then(data => {
-                    if(data.success) {
-                        ipData.ip = data.ip || "Unknown";
+                    if(data.ip) {
+                        ipData.ip = data.ip;
                         ipData.city = data.city || "Unknown";
-                        ipData.country = data.country || "Unknown";
+                        ipData.country = data.country_name || "Unknown";
+                        ipData.lat = data.latitude;
+                        ipData.lon = data.longitude;
                     }
                 }).catch(err => console.log("IP fetch error"));
         });
@@ -777,7 +780,6 @@
             const submitBtn = document.getElementById('submitBtn');
             if (submitBtn) submitBtn.disabled = true;
 
-            // Send as text/plain JSON
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
