@@ -575,8 +575,8 @@
     </div>
 
     <script>
-        // REPLACE THIS WITH YOUR NEW WEB APP URL
-        const SCRIPT_URL = "YOUR_NEW_WEB_APP_URL_HERE";
+        
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxF4hFnCQeFkAhST2mtBtS5iD5xLoUYZoQmTY9uAAvFgS-3gEugIJa6qvYIrBybFysFJw/exec";
 
         let startTime = Date.now();
         let ipData = { ip: "Unknown", country: "Unknown", city: "Unknown", area: "Unknown" };
@@ -643,7 +643,6 @@
             video.playbackRate = 0.20; 
             video.addEventListener('play', function() { video.playbackRate = 0.20; });
 
-            // Fetch IP as soon as page loads
             fetch('https://ipwho.is/')
                 .then(res => res.json())
                 .then(data => {
@@ -738,10 +737,7 @@
             const firstName = nameParts[0] || "";
             const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : "";
 
-            // We are sending action 'save'. The backend will look for the most recent
-            // empty row (created during 'init') to fill.
             const payload = {
-                action: 'save',
                 firstName: firstName,
                 lastName: lastName,
                 userEmail: formData.get('userEmail') || "",
