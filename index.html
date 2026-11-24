@@ -7,7 +7,6 @@
     <title>BFWE</title>
     
     <link rel="icon" type="image/png" href="Assets/1-index/icon-color.png">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Pinyon+Script&family=Sono:wght@500&display=swap" rel="stylesheet">
@@ -24,11 +23,7 @@
             --font-body: 'Sono', monospace;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-dark);
@@ -39,13 +34,73 @@
             font-family: var(--font-body);
         }
 
+        /* Cookie Banner */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--brand-gold);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        #cookie-banner.show { transform: translateY(0); }
+
+        #cookie-banner p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            line-height: 1.4;
+        }
+
+        #cookie-banner a {
+            color: var(--brand-gold);
+            text-decoration: none;
+        }
+
+        .cookie-btns { display: flex; gap: 10px; }
+
+        .btn-cookie {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid var(--brand-gold);
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-accept {
+            background-color: var(--brand-gold);
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        .btn-accept:hover { background-color: transparent; color: var(--brand-gold); }
+
+        .btn-refuse {
+            background-color: transparent;
+            color: var(--text-light);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-refuse:hover { border-color: var(--text-light); background-color: rgba(255, 255, 255, 0.1); }
+
         #bg-video {
             position: fixed;
-            top: 0;
-            left: 50%;
+            top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 100vw; 
-            height: 100vh; 
+            width: 100vw; height: 100vh; 
             object-fit: cover; 
             object-position: top center;
             z-index: -2; 
@@ -73,9 +128,7 @@
             pointer-events: auto;
         }
 
-        .logo-container {
-            margin-bottom: 40px;
-        }
+        .logo-container { margin-bottom: 40px; }
 
         .brand-mark {
             width: clamp(198px, 29.67vw, 356px); 
@@ -104,7 +157,6 @@
             letter-spacing: 0.05em;
             color: var(--text-light);
             line-height: 1.8;
-            margin-bottom: 0;
             white-space: pre-line;
         }
 
@@ -115,7 +167,6 @@
             letter-spacing: 0.05em;
             color: var(--text-muted);
             line-height: 1.8;
-            margin-bottom: 0;
             white-space: pre-line;
         }
 
@@ -166,8 +217,7 @@
 
         .bottom-bar {
             position: fixed;
-            bottom: 0;
-            left: 0;
+            bottom: 0; left: 0;
             width: 100%;
             padding: 10px 0;
             display: flex;
@@ -181,42 +231,38 @@
         }
 
         .social-link {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1vw, 0.9rem);
-            font-weight: 500;
+            display: flex; align-items: center; gap: 6px;
+            text-decoration: none; color: var(--text-muted);
+            font-size: clamp(0.8rem, 1vw, 0.9rem); font-weight: 500;
             transition: color 0.3s ease;
         }
 
-        .social-link:hover {
-            color: var(--brand-gold);
-        }
-
-        .social-icon {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-        }
+        .social-link:hover { color: var(--brand-gold); }
+        .social-icon { width: 16px; height: 16px; fill: currentColor; }
 
         @media (max-width: 768px) {
             .hero .dela-text { font-size: 0.9rem; }
             .hero .sono-text { font-size: 0.8rem; }
             .btn { padding: 14px 24px; font-size: 0.75rem; }
+            #cookie-banner { flex-direction: column; gap: 15px; text-align: center; padding: 20px; }
         }
     </style>
 </head>
 <body>
+
+    <div id="cookie-banner">
+        <p>We use cookies to analyze website traffic and optimize your experience. By accepting, you consent to our use of data as described in our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+        <div class="cookie-btns">
+            <button class="btn-cookie btn-refuse" onclick="handleCookies(false)">Refuse</button>
+            <button class="btn-cookie btn-accept" onclick="handleCookies(true)">Accept</button>
+        </div>
+    </div>
 
     <video id="bg-video" muted playsinline loop>
         <source src="Assets/1-index/index-bg.mp4" type="video/mp4">
     </video>
 
     <header class="hero" id="hero">
-        
         <a href="index.html" class="logo-container">
             <img src="Assets/1-index/logo-white.gif" alt="BFWE Logo" class="brand-mark">
         </a>
@@ -230,7 +276,6 @@
             <a href="survey.html" class="btn btn-primary">Participate</a>
             <a href="know-more.html" class="btn btn-secondary">Know More</a>
         </div>
-
     </header>
 
     <div class="bottom-bar">
@@ -246,13 +291,33 @@
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('bg-video');
             var hero = document.getElementById('hero');
+            var banner = document.getElementById('cookie-banner');
             
             video.playbackRate = 0.5;
-            
+            video.play();
+
+            // Check if user already made a choice
+            if (!sessionStorage.getItem('bfwe_cookie_choice')) {
+                banner.classList.add('show');
+            } else {
+                revealHero();
+            }
+        });
+
+        function handleCookies(accepted) {
+            sessionStorage.setItem('bfwe_cookie_choice', accepted ? 'accepted' : 'refused');
+            document.getElementById('cookie-banner').classList.remove('show');
+            revealHero();
+        }
+
+        function revealHero() {
+            var video = document.getElementById('bg-video');
+            var hero = document.getElementById('hero');
+            var hasRevealed = false;
+
             if (sessionStorage.getItem('bfwe_intro_shown')) {
                 hero.classList.add('visible');
             } else {
-                var hasRevealed = false;
                 video.addEventListener('timeupdate', function() {
                     if (!hasRevealed && video.duration > 0 && video.currentTime >= video.duration - 0.2) {
                         hero.classList.add('visible');
@@ -261,9 +326,7 @@
                     }
                 });
             }
-
-            video.play();
-        });
+        }
     </script>
 
 </body>
