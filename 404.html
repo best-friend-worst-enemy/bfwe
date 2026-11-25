@@ -1,0 +1,180 @@
+<!-- 404.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | BFWE</title>
+    
+    <link rel="icon" type="image/png" href="Assets/1-index/icon-color.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Pinyon+Script&family=Sono:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-gold: #f28d18;
+            --bg-dark: #050505;
+            --text-light: #ffffff;
+            --text-muted: #bbbbbb;
+            --font-head: 'Dela Gothic One', sans-serif;
+            --font-body: 'Sono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            font-family: var(--font-body);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 100vw; height: 100vh; 
+            object-fit: cover; 
+            object-position: top center;
+            z-index: -2; 
+            pointer-events: none; 
+            filter: brightness(0.5) saturate(0.8); 
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.9) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: transparent;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .home-btn img { height: 40px; width: auto; transition: opacity 0.3s ease; }
+        .home-btn img:hover { content: url('Assets/1-index/logo-color.gif'); }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: transparent;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover { color: var(--brand-gold); }
+        .social-icon { width: 16px; height: 16px; fill: currentColor; }
+
+        .error-container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .error-container h1 {
+            font-family: var(--font-head);
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--brand-gold);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .error-container p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            font-family: var(--font-body);
+            padding: 16px 32px;
+            background-color: var(--brand-gold);
+            color: var(--bg-dark);
+            border: none; border-radius: 50px;
+            font-weight: 600; font-size: 1rem; letter-spacing: 1px;
+            text-transform: uppercase; cursor: pointer;
+            transition: all 0.3s ease; text-decoration: none; display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: transparent; color: var(--brand-gold);
+            box-shadow: 0 0 15px rgba(242, 141, 24, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="Assets/3-survey/survey-bg.mp4" type="video/mp4">
+    </video>
+    
+    <div class="video-overlay"></div>
+
+    <div class="top-bar">
+        <a href="index.html" class="home-btn">
+            <img src="Assets/1-index/logo-white.gif" alt="Home">
+        </a>
+    </div>
+
+    <div class="error-container">
+        <h1>404</h1>
+        <p>The servers might be out or we are working on the website at the moment. Please try again later.</p>
+        <a href="index.html" class="btn">Go to Homepage</a>
+    </div>
+
+    <div class="bottom-bar">
+        <a href="https://youtube.com/@bf-we" target="_blank" class="social-link" aria-label="YouTube">
+            <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            @bf-we
+        </a>
+    </div>
+
+</body>
+</html>

@@ -366,15 +366,16 @@
             
             <div class="question-step active" id="step-0">
                 
+                <!-- Carousel (Texts Reordered: 3rd, 1st, 2nd) -->
                 <div class="carousel-container">
                     <div class="carousel-slide active">
+                        <p>We want to understand people’s relationship with tobacco or nicotine and get to know your most interesting story in order to inspire our art creation. For example, you can tell us how was your first time, or a memory that is directly connected with tobacco or nicotine, or even a never sent message for a person that you love.</p>
+                    </div>
+                    <div class="carousel-slide">
                         <p>This is a quick survey that will take you less than 5 minutes for the standard questions, but we encourage you to take your time and share feelings that will inspire us.</p>
                     </div>
                     <div class="carousel-slide">
                         <p>All survey participants will be kept informed about our progress and some will be invited for further interviews. At the end of this survey, you will have the choice to actively participate on our project or remain anonymous. All shared information will be protected by GDPR legislation. Know more on our privacy policy <a href="privacy-policy.html" style="color:var(--brand-gold); text-decoration: none;">page</a>.</p>
-                    </div>
-                    <div class="carousel-slide">
-                        <p>We want to understand people’s relationship with tobacco or nicotine and get to know your most interesting story in order to inspire our art creation. For example, you can tell us how was your first time, or a memory that is directly connected with tobacco or nicotine, or even a never sent message for a person that you love.</p>
                     </div>
                 </div>
 
@@ -394,9 +395,9 @@
                 <label>Feel free to share your story:</label>
                 <textarea name="q1_story" id="input-q1" rows="3" placeholder="Write here" required></textarea>
                 
-                <label>You can share one or more pictures to enrich your story.</label>
+                <label>You can share some pictures to enrich your story.</label>
                 <div class="file-upload-wrapper">
-                    <label for="file-input" class="file-upload-btn">Choose files</label>
+                    <label for="file-input" class="file-upload-btn">Choose pictures</label>
                     <input type="file" id="file-input" accept="image/*" multiple onchange="updateFileLabel()">
                     <div class="file-upload-name" id="file-name-display"></div>
                 </div>
@@ -642,7 +643,6 @@
             video.playbackRate = 0.20; 
             video.addEventListener('play', function() { video.playbackRate = 0.20; });
 
-            // Using ipapi.co for better coordinate accuracy
             fetch('https://ipapi.co/json/')
                 .then(res => res.json())
                 .then(data => {
