@@ -366,16 +366,16 @@
             
             <div class="question-step active" id="step-0">
                 
-                <!-- Carousel (Texts Reordered: 3rd, 1st, 2nd) -->
+                <!-- Updated Carousel Texts -->
                 <div class="carousel-container">
                     <div class="carousel-slide active">
-                        <p>We want to understand people’s relationship with tobacco or nicotine and get to know your most interesting story in order to inspire our art creation. For example, you can tell us how was your first time, or a memory that is directly connected with tobacco or nicotine, or even a never sent message for a person that you love.</p>
+                        <p>We want to understand your relationship with tobacco or nicotine. Share your most interesting story to inspire our art creation. For example, tell us about your first time smoking, a memory connected with tobacco or nicotine, or even a message for a person you love.</p>
                     </div>
                     <div class="carousel-slide">
-                        <p>This is a quick survey that will take you less than 5 minutes for the standard questions, but we encourage you to take your time and share feelings that will inspire us.</p>
+                        <p>This quick survey that will take you less than 5 minutes for the standard questions, but we encourage you to take your time and share feelings that will inspire us. All survey participants will be kept informed about our progress and some will be invited for further interviews.</p>
                     </div>
                     <div class="carousel-slide">
-                        <p>All survey participants will be kept informed about our progress and some will be invited for further interviews. At the end of this survey, you will have the choice to actively participate on our project or remain anonymous. All shared information will be protected by GDPR legislation. Know more on our privacy policy <a href="privacy-policy.html" style="color:var(--brand-gold); text-decoration: none;">page</a>.</p>
+                        <p>At the end of this survey, you will have the choice to actively participate on our project or remain anonymous. All shared information will be protected by GDPR legislation. Know more on our privacy policy <a href="privacy-policy.html" style="color:var(--brand-gold); text-decoration: none;">page</a>.</p>
                     </div>
                 </div>
 
@@ -597,12 +597,13 @@
             currentSlideIndex = index;
         }
 
+        // Increased to 8000ms (8 seconds) so users have enough time to read
         setInterval(() => {
             if (document.getElementById('step-0').classList.contains('active')) {
                 currentSlideIndex = (currentSlideIndex + 1) % slides.length;
                 goToSlide(currentSlideIndex);
             }
-        }, 6000);
+        }, 8000);
 
         // --- Slider Logic ---
         function updateAgeValue() {
