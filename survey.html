@@ -328,23 +328,52 @@
             to { opacity: 1; }
         }
 
+        /* Progress Lines instead of Dots */
         .carousel-nav {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-bottom: 20px;
+            width: 100%;
         }
 
-        .carousel-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
+        .carousel-line {
+            height: 3px;
+            flex: 1;
             background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, height 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .carousel-dot.active { background: var(--brand-gold); }
+        .carousel-line:hover {
+            height: 5px;
+        }
+
+        .carousel-line.active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* The filling animation */
+        .carousel-line .progress-fill {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--brand-gold);
+            border-radius: 2px;
+        }
+
+        .carousel-line.active .progress-fill {
+            animation: fillProgress 15s linear forwards;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -366,7 +395,6 @@
             
             <div class="question-step active" id="step-0">
                 
-                <!-- Updated Carousel Texts -->
                 <div class="carousel-container">
                     <div class="carousel-slide active">
                         <p>We want to understand your relationship with tobacco or nicotine. Share your most interesting story to inspire our art creation. For example, tell us about your first time smoking, a memory connected with tobacco or nicotine, or even a message for a person you love.</p>
@@ -379,10 +407,17 @@
                     </div>
                 </div>
 
+                <!-- Progress Lines Navigation -->
                 <div class="carousel-nav">
-                    <div class="carousel-dot active" onclick="goToSlide(0)"></div>
-                    <div class="carousel-dot" onclick="goToSlide(1)"></div>
-                    <div class="carousel-dot" onclick="goToSlide(2)"></div>
+                    <div class="carousel-line active" onclick="goToSlide(0)">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="carousel-line" onclick="goToSlide(1)">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="carousel-line" onclick="goToSlide(2)">
+                        <div class="progress-fill"></div>
+                    </div>
                 </div>
 
                 <div class="btn-group" style="margin-top: 10px;">
@@ -586,24 +621,42 @@
 
         // --- Carousel Logic ---
         let currentSlideIndex = 0;
+        let carouselInterval;
         const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.carousel-dot');
+        const lines = document.querySelectorAll('.carousel-line');
+
+        function resetCarouselTimer() {
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                if (document.getElementById('step-0').classList.contains('active')) {
+                    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                    goToSlide(currentSlideIndex);
+                }
+            }, 15000); // 15 seconds
+        }
 
         function goToSlide(index) {
             slides.forEach(s => s.classList.remove('active'));
-            dots.forEach(d => d.classList.remove('active'));
+            lines.forEach(l => {
+                l.classList.remove('active');
+                const fill = l.querySelector('.progress-fill');
+                if (fill) {
+                    fill.style.animation = 'none';
+                    fill.offsetHeight; // trigger reflow
+                    fill.style.animation = '';
+                }
+            });
+            
             slides[index].classList.add('active');
-            dots[index].classList.add('active');
+            lines[index].classList.add('active');
             currentSlideIndex = index;
+            
+            // Reset the timer so it counts 15s from the manual click
+            resetCarouselTimer(); 
         }
 
-        // Increased to 8000ms (8 seconds) so users have enough time to read
-        setInterval(() => {
-            if (document.getElementById('step-0').classList.contains('active')) {
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-                goToSlide(currentSlideIndex);
-            }
-        }, 8000);
+        // Initialize timer
+        resetCarouselTimer();
 
         // --- Slider Logic ---
         function updateAgeValue() {
